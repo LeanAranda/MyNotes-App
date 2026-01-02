@@ -31,8 +31,7 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Note> notes = new HashSet<>();
 
-    public Category(String name, User user) {
+    public Category(String name) {
         this.name = name;
-        this.user = user;
     }
 }

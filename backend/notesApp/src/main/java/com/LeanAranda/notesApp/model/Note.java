@@ -46,9 +46,8 @@ public class Note {
     )
     private Set<Category> categories = new HashSet<>();
 
-    public Note(String title, String text, User user) {
+    public Note(String title, String text) {
         this.title = title;
         this.text = text;
-        this.user = user;
     }
 }

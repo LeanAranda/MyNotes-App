@@ -14,12 +14,9 @@ import java.util.Set;
 @Repository
 public interface INoteRepository extends JpaRepository<Note, Long> {
     Optional<Note> findByIdAndUser(long id, User user);
-
     List<Note> findAllByUser(User user);
-
     List<Note> findAllByUserAndStatus(User user, NoteStatus status);
-
-    List<Note> findAllByUserAndStatusAndCategoriesContaining(User user, NoteStatus status, Set<Category> categories);
+    List<Note> findAllByUserAndStatusAndCategoriesContaining(User user, NoteStatus status, Category category);
 
     //save
     //update

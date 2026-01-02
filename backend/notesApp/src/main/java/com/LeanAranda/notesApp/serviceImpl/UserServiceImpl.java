@@ -33,10 +33,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User create(User user) {
+    public void create(User user) {
         if(existsByUsername(user.getUsername())) throw new UsernameAlreadyExistsException(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override

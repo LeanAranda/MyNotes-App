@@ -2,10 +2,7 @@ package com.LeanAranda.notesApp.model;
 
 import com.LeanAranda.notesApp.constants.NoteStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(exclude = {"user"})
 public class Note {
 
     @Id
@@ -38,7 +36,7 @@ public class Note {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "note_category",
             joinColumns = @JoinColumn(name = "note_id"),

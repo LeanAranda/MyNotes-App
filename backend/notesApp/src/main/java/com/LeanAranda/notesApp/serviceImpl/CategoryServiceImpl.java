@@ -19,9 +19,14 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Category create(Category category, User user) {
+    public Category getByIdAndUser(Long id, User user) {
+        return categoryRepository.findByIdAndUser(id, user);
+    }
+
+    @Override
+    public void create(Category category, User user) {
         category.setUser(user);
-        return categoryRepository.save(category);
+        categoryRepository.save(category);
     }
 
     @Override

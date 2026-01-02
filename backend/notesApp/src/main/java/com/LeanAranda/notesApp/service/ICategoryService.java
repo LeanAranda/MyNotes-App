@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface ICategoryService {
-    Category create(Category category, User user);
+    Category getByIdAndUser(Long id, User user);
+    void create(Category category, User user);
     List<Category> getAllByUser(User user);
     List<Category> getAllByIds(List<Long> ids);
     Set<Category> getAllByNote(Note note);

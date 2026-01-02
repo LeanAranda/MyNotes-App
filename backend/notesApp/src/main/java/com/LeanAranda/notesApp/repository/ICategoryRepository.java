@@ -12,6 +12,7 @@ import java.util.Set;
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category,Long> {
     List<Category> findAllByUser(User user);
+    Category findByIdAndUser(Long id, User user);
 
     //save
     //find all

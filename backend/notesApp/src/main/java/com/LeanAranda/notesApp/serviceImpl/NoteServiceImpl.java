@@ -35,7 +35,7 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public Note create(Note note, List<Long> categoryIds, User user) {
+    public void create(Note note, List<Long> categoryIds, User user) {
         note.setUser(user);
 
         List<Category> categories = categoryRepository.findAllById(categoryIds);
@@ -45,11 +45,11 @@ public class NoteServiceImpl implements INoteService {
         note.setCreatedAt(LocalDateTime.now());
         note.setLastModification(LocalDateTime.now());
 
-        return noteRepository.save(note);
+        noteRepository.save(note);
     }
 
     @Override
-    public Note update(Long id, String title, String text, List<Long> categoryIds, User user) {
+    public void update(Long id, String title, String text, List<Long> categoryIds, User user) {
         Note note = getByIdAndUser(id, user);
 
         note.setTitle(title);
@@ -59,27 +59,27 @@ public class NoteServiceImpl implements INoteService {
         List<Category> categories = categoryRepository.findAllById(categoryIds);
         note.setCategories(new HashSet<>(categories));
 
-        return noteRepository.save(note);
+        noteRepository.save(note);
     }
 
     @Override
-    public Note Archive(Long id, User user) {
+    public void archive(Long id, User user) {
         Note note = getByIdAndUser(id, user);
 
         note.setStatus(NoteStatus.ARCHIVED);
         note.setLastModification(LocalDateTime.now());
 
-        return noteRepository.save(note);
+        noteRepository.save(note);
     }
 
     @Override
-    public Note Unarchive(Long id, User user) {
+    public void unarchive(Long id, User user) {
         Note note = getByIdAndUser(id, user);
 
         note.setStatus(NoteStatus.ACTIVE);
         note.setLastModification(LocalDateTime.now());
 
-        return noteRepository.save(note);
+        noteRepository.save(note);
     }
 
     @Override
@@ -104,6 +104,6 @@ public class NoteServiceImpl implements INoteService {
 
     @Override
     public List<Note> getAllByUserAndCategoryAndStatus(User user, Category category, NoteStatus status) {
-        return noteRepository.findAllByUserAndStatusAndCategoriesContaining(user, status, Set.of(category));
+        return noteRepository.findAllByUserAndStatusAndCategoriesContaining(user, status, category);
     }
 }

@@ -1,5 +1,6 @@
 package com.LeanAranda.notesApp.model;
 
+import com.LeanAranda.notesApp.constants.NoteStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,8 +25,12 @@ public class Note {
 
     private String title;
     private String text;
-    private boolean archived = false;
-    private boolean deleted = false;
+
+    //Notes can have 3 states: (ACTIVE, ARCHIVED and DELETED)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 15)
+    private NoteStatus status =  NoteStatus.ACTIVE;
+
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime lastModification = LocalDateTime.now();
 

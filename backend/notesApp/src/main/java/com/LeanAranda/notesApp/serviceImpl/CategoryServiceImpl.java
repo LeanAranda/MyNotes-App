@@ -41,6 +41,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return categoryRepository.count() == 0;
     }
 }

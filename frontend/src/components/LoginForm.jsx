@@ -34,14 +34,14 @@ export default function LoginForm({ onSuccess }) {
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 300 }}>
       <h2>Login</h2>
-      <label>Usuario</label>
+      <label>Username</label>
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         required
       />
 
-      <label>Contraseña</label>
+      <label>Password</label>
       <input
         type="password"
         value={password}
@@ -49,7 +49,7 @@ export default function LoginForm({ onSuccess }) {
         required
       />
 
-      <button type="submit">Ingresar</button>
+      <button type="submit">Login</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>

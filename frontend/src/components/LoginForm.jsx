@@ -1,57 +1,58 @@
 import { useState } from "react";
+import "./Form.css";
 
 export default function LoginForm({ onSuccess }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setError("");
 
-    try {
-      const res = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+        try {
+            const res = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
 
-      if (!res.ok) {
-        throw new Error("Invalid credentials");
-      }
+            if (!res.ok) {
+                throw new Error("Invalid credentials");
+            }
 
-      const data = await res.json();
-      // saved the token in localStorage
-      localStorage.setItem("token", data.token);
+            const data = await res.json();
+            // saved the token in localStorage
+            localStorage.setItem("token", data.token);
 
-      // login successful
-      onSuccess?.();
-    } catch (err) {
-      setError(err.message);
+            // login successful
+            onSuccess?.();
+        } catch (err) {
+            setError(err.message);
+        }
     }
-  }
 
-  return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 300 }}>
-      <h2>Login</h2>
-      <label>Username</label>
-      <input
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-
-      <label>Password</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-
-      <button type="submit">Login</button>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
-  );
+    return (
+        <div className="form-container">
+            <form onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                <label>Username</label>
+                <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <label>Password</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <br />
+                <button type="submit">Login</button>
+                {error && <p>{error}</p>}
+            </form>
+        </div>
+    );
 }

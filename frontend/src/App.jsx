@@ -11,17 +11,27 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: 24 }}> 
-      <h1>Notes</h1> 
-      {logged ? (
-        <> 
-          <button onClick={handleLogout}>Logout</button> 
-          <p>Welcome!</p>
-          <NotesList />
-        </>
+    <div className="page-container">
+      <header className="header">
+        <h1>Notes</h1>
+      </header>
+
+      <main className="main-content">
+        {logged ? (
+          <>
+            <button onClick={handleLogout}>Logout</button>
+            <p>Welcome!</p>
+            <NotesList />
+          </>
         ) : (
           <LoginForm onSuccess={() => setLogged(true)} />
-        )} 
+        )}
+      </main>
+
+      <footer className="footer">
+        <p>© 2026 Lean Aranda</p>
+        {/* </footer> */}
+      </footer>
     </div>
   );
 }

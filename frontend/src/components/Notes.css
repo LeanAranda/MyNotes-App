@@ -1,0 +1,66 @@
+.notes-list-container{
+  width: 100%;
+  align-self: start;
+}
+
+.buttons-container{
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cards-container{
+  display: grid;
+  padding-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-items: center;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.modification-date {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.note-card{
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.categories {
+  display: flex;        
+  flex-wrap: wrap;      
+  gap: 0.5rem;    
+  font-size: 0.8rem;      
+  margin-top: 0.5rem;
+}
+
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-item {
+    display: inline-block;
+    background-color: #860e3c;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import NoteForm from "./NoteForm";
+import "./Notes.css";
 
 export default function NotesList() {
     const [notes, setNotes] = useState([]);
@@ -46,18 +47,31 @@ export default function NotesList() {
     };
 
     const renderCard = (note) => (
-        <div
-            key={note.id}
-            style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "1rem", width: "250px", backgroundColor: "#fff", }}
-        >
-            <h3>{note.title}</h3>
-            <p>{note.text}</p>
-            <p><strong>Status:</strong> {note.status}</p>
-            <p><strong>Last modification:</strong> {new Date(note.lastModification).toLocaleString()}</p>
-            <p>
+        <div key={note.id} className="note-card">
+            <div className="content">
+                <h3>{note.title}</h3>
+                <p>{note.text}</p>
+            </div>
+            <div className="modification-date">
+                <span><strong>Last modification:</strong></span>
+                <span> 
+                    {new Date(note.lastModification).toLocaleString("en-US", { 
+                        year: "numeric", month: "short", day: "numeric", 
+                        hour: "numeric", minute: "numeric", hour12: true,     
+                    })} 
+
+                </span>
+            </div>
+            <div className="categories">
                 <strong>Categories:</strong>{" "}
-                {note.categories.map((c) => c.name).join(", ")}
-            </p>
+                <div className="categories-list">
+                    {note.categories.map((c, index) => (
+                    <span key={index} className="category-item">
+                        {c.name}
+                    </span>
+                ))}
+                </div>
+            </div>
             {note.status === "ACTIVE" && (
                 <button onClick={() => changeStatus(note.id, note.status)}>archive</button>
             )}
@@ -105,14 +119,15 @@ export default function NotesList() {
     };
 
     return (
-        <div>
-            <h2>My notes</h2>
-            <button onClick={() => setShowForm(!showForm)}>+</button>
-            {showForm && <NoteForm onCreate={createNote} />}
-            <button onClick={fetchNotes}>View Active</button>
-            <button onClick={fetchArchivedNotes}>View Archived</button>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+        <div className="notes-list-container">
+            <div className="buttons-container">
+                <button onClick={fetchNotes}>View Active</button>
+                <button onClick={fetchArchivedNotes}>View Archived</button>
+                <button onClick={() => setShowForm(!showForm)}>+</button>
+            </div>
+            
+            <div className="cards-container">
+                {showForm && <NoteForm onCreate={createNote} />}
                 {(showArchived ? archivedNotes : notes).map(renderCard)}
             </div>
         </div>

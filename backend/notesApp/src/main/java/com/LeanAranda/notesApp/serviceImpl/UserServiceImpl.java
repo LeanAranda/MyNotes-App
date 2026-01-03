@@ -26,7 +26,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
+    
     @Override
     public boolean isEmpty() {
         return userRepository.count() == 0;

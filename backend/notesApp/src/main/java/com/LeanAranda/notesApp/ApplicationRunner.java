@@ -19,6 +19,8 @@ public class ApplicationRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // if the database is empty, this function creates a default user with their own categories
+        // username: user, password: 1234
         dataInitializer();
     }
 

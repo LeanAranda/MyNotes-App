@@ -7,6 +7,7 @@ import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.service.ICategoryService;
 import com.LeanAranda.notesApp.service.IUserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,19 +26,17 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<CategoryDto>> getCategoriesByUser() {
-        //TODO get user by login
-        User user = userService.getById(1L);
+    @GetMapping("/myCategories")
+    public ResponseEntity<List<CategoryDto>> getCategoriesByUser(Authentication authentication) {
+        User user = userService.getByUsername(authentication.getName());
         List<CategoryDto> categories = categoryService.getAllByUser(user).stream()
                 .map(CategoryMapper::toDto).toList();
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/{categoryId}")
-    public CategoryDto getById(@PathVariable("categoryId") Long categoryId) {
-        //TODO get user by login
-        User user = userService.getById(1L);
+    @GetMapping("/myCategories/{categoryId}")
+    public CategoryDto getById(@PathVariable("categoryId") Long categoryId, Authentication authentication) {
+        User user = userService.getByUsername(authentication.getName());
         Category category = categoryService.getByIdAndUser(categoryId, user);
         return CategoryMapper.toDto(category);
     }

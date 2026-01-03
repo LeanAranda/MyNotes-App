@@ -10,5 +10,7 @@ public class UserDto {
     private Long id;
     @NotBlank(message = "Username can't be empty")
     private String username;
+    @NotBlank(message = "Password can't be empty")
+    private String password;
 
 }

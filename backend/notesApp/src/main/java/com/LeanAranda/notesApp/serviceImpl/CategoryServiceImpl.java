@@ -5,7 +5,9 @@ import com.LeanAranda.notesApp.model.Note;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.repository.ICategoryRepository;
 import com.LeanAranda.notesApp.service.ICategoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Set;
@@ -20,13 +22,14 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public Category getByIdAndUser(Long id, User user) {
-        return categoryRepository.findByIdAndUser(id, user);
+        return categoryRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
     }
 
     @Override
-    public void create(Category category, User user) {
+    public Category create(Category category, User user) {
         category.setUser(user);
-        categoryRepository.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override

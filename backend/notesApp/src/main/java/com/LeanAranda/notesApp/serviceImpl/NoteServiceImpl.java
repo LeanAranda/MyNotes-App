@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class NoteServiceImpl implements INoteService {
@@ -35,7 +33,7 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public void create(Note note, List<Long> categoryIds, User user) {
+    public Note create(Note note, List<Long> categoryIds, User user) {
         note.setUser(user);
 
         List<Category> categories = categoryRepository.findAllById(categoryIds);
@@ -45,11 +43,11 @@ public class NoteServiceImpl implements INoteService {
         note.setCreatedAt(LocalDateTime.now());
         note.setLastModification(LocalDateTime.now());
 
-        noteRepository.save(note);
+        return noteRepository.save(note);
     }
 
     @Override
-    public void update(Long id, String title, String text, List<Long> categoryIds, User user) {
+    public Note update(Long id, String title, String text, List<Long> categoryIds, User user) {
         Note note = getByIdAndUser(id, user);
 
         note.setTitle(title);
@@ -59,7 +57,7 @@ public class NoteServiceImpl implements INoteService {
         List<Category> categories = categoryRepository.findAllById(categoryIds);
         note.setCategories(new HashSet<>(categories));
 
-        noteRepository.save(note);
+        return noteRepository.save(note);
     }
 
     @Override

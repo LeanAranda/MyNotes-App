@@ -4,8 +4,10 @@ import com.LeanAranda.notesApp.exception.UsernameAlreadyExistsException;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.repository.IUserRepository;
 import com.LeanAranda.notesApp.service.IUserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -19,7 +21,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
     @Override
@@ -33,10 +35,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void create(User user) {
+    public User create(User user) {
         if(existsByUsername(user.getUsername())) throw new UsernameAlreadyExistsException(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override

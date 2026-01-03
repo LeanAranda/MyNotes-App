@@ -67,3 +67,15 @@
     font-size: 0.9rem;
 }
 
+.card-buttons-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.delete-btn{
+    background-color: #f52626;
+    color: rgb(255, 255, 255);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}

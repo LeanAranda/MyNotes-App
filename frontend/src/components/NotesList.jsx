@@ -72,12 +72,15 @@ export default function NotesList() {
                 ))}
                 </div>
             </div>
-            {note.status === "ACTIVE" && (
-                <button onClick={() => changeStatus(note.id, note.status)}>archive</button>
-            )}
-            {note.status === "ARCHIVED" && (
-                <button onClick={() => changeStatus(note.id, note.status)}>unarchive</button>
-            )}
+            <div className="card-buttons-container">
+                {note.status === "ACTIVE" && (
+                    <button onClick={() => changeStatus(note.id, note.status)}>Archive</button>
+                )}
+                {note.status === "ARCHIVED" && (
+                    <button onClick={() => changeStatus(note.id, note.status)}>Unarchive</button>
+                )}
+                <button className="delete-btn" onClick={() => deleteNote(note.id, note.status)}>Delete</button>
+            </div>
         </div>
     );
 
@@ -88,6 +91,27 @@ export default function NotesList() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!res.ok) {
+                throw new Error(`Error ${res.status}`);
+            }
+            if (status === "ACTIVE") {
+                fetchNotes();
+            } else {
+                fetchArchivedNotes();
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const deleteNote = async (id, status) => {
+        try {
+            const res = await fetch(`http://localhost:8080/notes/delete/${id}`, {
+                method: "DELETE",
+                headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });

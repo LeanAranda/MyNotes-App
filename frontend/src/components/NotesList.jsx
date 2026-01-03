@@ -128,7 +128,12 @@ export default function NotesList() {
             
             <div className="cards-container">
                 {showForm && <NoteForm onCreate={createNote} />}
-                {(showArchived ? archivedNotes : notes).map(renderCard)}
+                {(showArchived ? archivedNotes : notes)
+                    .slice()
+                    .sort(
+                        (a, b) =>
+                            new Date(b.lastModification) - new Date(a.lastModification))
+                            .map(renderCard)}
             </div>
         </div>
     );

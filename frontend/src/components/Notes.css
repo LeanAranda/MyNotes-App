@@ -20,6 +20,9 @@
 
 .content {
     flex-grow: 1;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .modification-date {
@@ -31,7 +34,7 @@
 
 .note-card{
     width: 250px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 8px;
     padding: 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

@@ -48,21 +48,27 @@ export default function NoteForm({ onCreate }) {
     };
 
     return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <textarea placeholder="Text" value={text} onChange={(e) => setText(e.target.value)}/>
-                <div className="categories">
-                    <strong>Categories:</strong>
-                    {categories.map((cat) => (
-                        <label key={cat.id} style={{ marginRight: "1rem" }}>
+        <div className="note-form-container">
+            
+                <form onSubmit={handleSubmit}>
+                    <div className="text-inputs">
+                        <input type="text" placeholder="Title" required value={title} onChange={(e) => setTitle(e.target.value)}/>
+                        <textarea placeholder="Text" maxLength={255} value={text} onChange={(e) => setText(e.target.value)}/>
+                    </div>
+                    <div className="categories">
+                        <strong>Categories:</strong>
+                        <div>
+                            {categories.map((cat) => (
+                            <label key={cat.id} style={{ marginRight: "1rem" }}>
                             <input type="checkbox" checked={selectedCategories.includes(cat.id)} onChange={() => toggleCategory(cat.id)}/>
                             {cat.name}
-                        </label>
-                    ))}
-                </div>
+                            </label>
+                        ))}
+                        </div>
+                    </div>
                 <button type="submit">Create note</button>
-            </form>
+                </form>
+            
         </div>
     )
 }

@@ -21,7 +21,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root1
       SPRING_DATASOURCE_PASSWORD: root1
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_SHOW_SQL: "false"
       JWT_KEY: myjwtkey1234
     depends_on:
       db:

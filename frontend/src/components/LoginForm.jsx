@@ -16,16 +16,12 @@ export default function LoginForm({ onSuccess }) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
             });
-
             if (!res.ok) {
                 throw new Error("Invalid credentials");
             }
-
             const data = await res.json();
-            // saved the token in localStorage
+            // saves the token in localStorage
             localStorage.setItem("token", data.token);
-
-            // login successful
             onSuccess?.();
         } catch (err) {
             setError(err.message);

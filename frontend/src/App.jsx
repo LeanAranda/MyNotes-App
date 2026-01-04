@@ -3,6 +3,7 @@ import LoginForm from './components/LoginForm.jsx'
 import NotesList from "./components/NotesList";
 
 export default function App() {
+  // state to track if the user is logged in
   const [logged, setLogged] = useState(!!localStorage.getItem("token"));
   const [view, setView] = useState("active")
 
@@ -30,7 +31,6 @@ export default function App() {
           )}
       <footer className="footer">
         <p>© 2026 Lean Aranda</p>
-        {/* </footer> */}
       </footer>
     </div>
   );

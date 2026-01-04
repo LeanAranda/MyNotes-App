@@ -10,6 +10,7 @@ export default function NotesList() {
     const [showForm, setShowForm] = useState(false);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const token = localStorage.getItem("token");
 
@@ -73,6 +74,9 @@ export default function NotesList() {
     };
 
 
+    // initial data fetch
+    // active notes and categories
+
     useEffect(() => {
         fetchNotes();
     }, []);
@@ -99,6 +103,7 @@ export default function NotesList() {
 
     // actions
 
+    // archive/unarchive notes
     const changeStatus = async (id, status) => {
         const statusEndpoint = status === "ACTIVE" ? "archive" : "unarchive";
         try {
@@ -113,8 +118,10 @@ export default function NotesList() {
                 throw new Error(`Error ${res.status}`);
             }
             if (status === "ACTIVE") {
+                showMessage("Note archived successfully");
                 fetchNotes();
             } else {
+                showMessage("Note unarchived successfully");
                 fetchArchivedNotes();
             }
         } catch (err) {
@@ -133,6 +140,7 @@ export default function NotesList() {
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
             }
+            showMessage("Note deleted successfully");
             if (status === "ACTIVE") {
                 fetchNotes();
             } else {
@@ -153,6 +161,7 @@ export default function NotesList() {
             body: JSON.stringify(note),
         });
         if (!res.ok) throw new Error(`Error ${res.status}`);
+        showMessage("Note created successfully");
         await fetchNotes();
         setShowForm(false);
     };
@@ -168,7 +177,7 @@ export default function NotesList() {
                 body: JSON.stringify(updatedData),
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
-
+            showMessage("Note updated successfully");
             if (showArchived) {
                 fetchArchivedNotes();
             } else {
@@ -179,10 +188,17 @@ export default function NotesList() {
         }
     };
 
+    // toast message handler
+    const showMessage = (text) => { 
+        setMessage(text); 
+        setTimeout(() => setMessage(null), 3000); // 3 secs
+    };
 
     return (
         <div className="notes-list-container">
             <div className="top-bar">
+                {message && ( <div className="toast-message"> {message} </div> )}
+
                 <div className="buttons-container">
                     <button onClick={fetchNotes} className={showArchived ? "" : "active-btn"} >View Active</button>
                     <button onClick={fetchArchivedNotes} className={showArchived ? "active-btn" : ""}>View Archived</button>

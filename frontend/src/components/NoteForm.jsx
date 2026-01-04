@@ -36,7 +36,8 @@ export default function NoteForm({ onCreate, onCancel }) {
         ); 
     };
 
-    const handleSubmit = () => { 
+    const handleSubmit = (e) => { 
+        e.preventDefault();
         onCreate({ 
             title, 
             text, 

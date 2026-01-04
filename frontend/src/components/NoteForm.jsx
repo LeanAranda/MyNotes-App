@@ -68,7 +68,7 @@ export default function NoteForm({ onCreate, onCancel }) {
                     </div>
                     <div className="form-buttons">
                         <button type="submit">Create note</button>
-                        <button type="button" onClick={onCancel}>Cancel</button>
+                        <button type="button" onClick={(e) => {e.stopPropagation(); onCancel()}}>Cancel</button>
                     </div>
                 </form>
             

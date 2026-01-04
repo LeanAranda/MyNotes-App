@@ -7,8 +7,12 @@ export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
   const [isEditing, setIsEditing] = useState(false);
   const token = localStorage.getItem("token");
 
+  const handleCardClick = () => { 
+    setIsEditing(true); 
+  };
+
   return (
-    <div className="note-card-container">
+    <div className="note-card-container" onDoubleClick={handleCardClick}  >
       {isEditing ? (
         <EditNoteForm
           note={note}
@@ -50,13 +54,13 @@ export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
           </div>
           <div className="card-buttons-container">
             {note.status === "ACTIVE" && (
-              <button onClick={() => onChangeStatus(note.id, note.status)}>Archive</button>
+              <button onClick={(e) => {e.stopPropagation(); onChangeStatus(note.id, note.status)}}>Archive</button>
             )}
             {note.status === "ARCHIVED" && (
-              <button onClick={() => onChangeStatus(note.id, note.status)}>Unarchive</button>
+              <button onClick={(e) => {e.stopPropagation(); onChangeStatus(note.id, note.status)}}>Unarchive</button>
             )}
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button className="delete-btn" onClick={() => onDelete(note.id, note.status)}>
+            <button onClick={(e) => {e.stopPropagation(); setIsEditing(true)}}>Edit</button>
+            <button className="delete-btn" onClick={(e) => {e.stopPropagation(); onDelete(note.id, note.status)}}>
                 <img src={trashIcon} alt="Delete" />
             </button>
           </div>

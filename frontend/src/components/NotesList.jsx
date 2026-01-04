@@ -8,6 +8,8 @@ export default function NotesList() {
     const [archivedNotes, setArchivedNotes] = useState([]);
     const [showArchived, setShowArchived] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const token = localStorage.getItem("token");
 
@@ -45,49 +47,57 @@ export default function NotesList() {
         setShowArchived(true);
     };
 
+    const fetchNotesByCategory = async (categoryId) => {
+        try {
+            const endpoint = showArchived
+                ? "archived"
+                : "active";
+
+            const res = await fetch(`http://localhost:8080/notes/myNotes/${endpoint}/${categoryId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+            const data = await res.json();
+
+            if (showArchived) {
+                setArchivedNotes(data);
+            } else {
+                setNotes(data);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
     useEffect(() => {
         fetchNotes();
     }, []);
 
-    // card rendering and actions
-
-    const renderCard = (note) => (
-        <div key={note.id} className="note-card">
-            <div className="content">
-                <h3>{note.title}</h3>
-                <p>{note.text}</p>
-            </div>
-            <div className="modification-date">
-                <span><strong>Last modification:</strong></span>
-                <span> 
-                    {new Date(note.lastModification).toLocaleString("en-US", { 
-                        year: "numeric", month: "short", day: "numeric", 
-                        hour: "numeric", minute: "numeric", hour12: true,     
-                    })} 
-
-                </span>
-            </div>
-            <div className="categories">
-                <strong>Categories:</strong>{" "}
-                <div className="categories-list">
-                    {note.categories.map((c, index) => (
-                    <span key={index} className="category-item">
-                        {c.name}
-                    </span>
-                ))}
-                </div>
-            </div>
-            <div className="card-buttons-container">
-                {note.status === "ACTIVE" && (
-                    <button onClick={() => changeStatus(note.id, note.status)}>Archive</button>
-                )}
-                {note.status === "ARCHIVED" && (
-                    <button onClick={() => changeStatus(note.id, note.status)}>Unarchive</button>
-                )}
-                <button className="delete-btn" onClick={() => deleteNote(note.id, note.status)}>Delete</button>
-            </div>
-        </div>
+    useEffect(() => { 
+        const fetchCategories = async () => { 
+            try { 
+                const res = await fetch("http://localhost:8080/categories/myCategories", { 
+                    headers: { 
+                        "Content-Type": "application/json", 
+                        Authorization: `Bearer ${token}`, 
+                    }, 
+                }); 
+                if (!res.ok) throw new Error(`Error ${res.status}`); 
+                const data = await res.json(); 
+                setCategories(data); 
+            } catch (err) { 
+                console.error(err); 
+            } 
+        }; 
+        fetchCategories(); 
+        }, [token]
     );
+
+    // actions
 
     const changeStatus = async (id, status) => {
         const statusEndpoint = status === "ACTIVE" ? "archive" : "unarchive";
@@ -133,18 +143,18 @@ export default function NotesList() {
         }
     };
 
-    const createNote = async (note) => { 
-        const res = await fetch("http://localhost:8080/notes/create", { 
-            method: "POST", 
-            headers: { 
-                "Content-Type": "application/json", 
+    const createNote = async (note) => {
+        const res = await fetch("http://localhost:8080/notes/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-            }, 
-            body: JSON.stringify(note), 
-        }); 
-        if (!res.ok) throw new Error(`Error ${res.status}`); 
-        await fetchNotes(); 
-        setShowForm(false); 
+            },
+            body: JSON.stringify(note),
+        });
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+        await fetchNotes();
+        setShowForm(false);
     };
 
     const updateNote = async (updatedData) => {
@@ -172,12 +182,41 @@ export default function NotesList() {
 
     return (
         <div className="notes-list-container">
-            <div className="buttons-container">
-                <button onClick={fetchNotes}>View Active</button>
-                <button onClick={fetchArchivedNotes}>View Archived</button>
-                <button onClick={() => setShowForm(!showForm)}>+</button>
+            <div className="top-bar">
+                <div className="buttons-container">
+                    <button onClick={fetchNotes} className={showArchived ? "" : "active-btn"} >View Active</button>
+                    <button onClick={fetchArchivedNotes} className={showArchived ? "active-btn" : ""}>View Archived</button>
+                    <button onClick={() => setShowForm(!showForm)}>+</button>
+                </div>
+                
+                <div className="filter-container">
+                    <label htmlFor="categoryFilter"><strong>Filter by category:</strong></label>
+                    
+                    <select 
+                        value={selectedCategory || ""} 
+                        onChange={(e) => { 
+                            const value = e.target.value; 
+                            setSelectedCategory(value || null); 
+                            
+                            if (value) { fetchNotesByCategory(value); 
+
+                            } else {
+                                showArchived ? fetchArchivedNotes() : fetchNotes(); 
+                            } 
+                        }} 
+                    >
+
+                        <option value="">All</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
             
+
             <div className="cards-container">
                 {showForm && <NoteForm onCreate={createNote} onCancel={() => setShowForm(false)} />}
                 {(showArchived ? archivedNotes : notes)

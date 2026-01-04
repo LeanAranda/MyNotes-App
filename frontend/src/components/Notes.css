@@ -1,17 +1,32 @@
-.notes-list-container{
+.notes-list-container {
   width: 100%;
   align-self: start;
 }
 
-.buttons-container{
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons-container {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
+select {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
 
-
-.cards-container{
+.cards-container {
   display: grid;
   padding-top: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -21,70 +36,88 @@
 }
 
 .content {
-    flex-grow: 1;
-    word-wrap: break-word; 
-    overflow-wrap: break-word;
-    white-space: normal;
+  flex-grow: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .modification-date {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
 }
 
-.note-card{
-    width: 250px;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.note-card {
+  width: 250px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note-card-container {
+  transition: border-color 0.25s, transform 0.2s ease-in-out;
+}
+
+.note-card-container:hover {
+  border-color: #646cff;
+  
+  transform: scale(1.04)
 }
 
 .categories {
-  display: flex;        
-  flex-wrap: wrap;      
-  gap: 0.5rem;    
-  font-size: 0.8rem;      
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
   margin-top: 0.5rem;
 }
 
 .categories-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .category-item {
-    display: inline-block;
-    background-color: #860e3c;
-    color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
+  display: inline-block;
+  background-color: #860e3c;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
-.card-buttons-container{
-    display: flex;
-    justify-content: space-between;
-    gap: 0.5rem;
+.card-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
-.delete-btn{
-    background-color: #f52626;
-    color: rgb(255, 255, 255);
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+.delete-btn {
+  background-color: #f52626;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .delete-btn img,
 .delete-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.buttons-container .active-btn {
+  background-color: #ffffff;
+  color: #000000;
+  ;
+  border: 1px solid #000000;
+  font-weight: bold;
 }

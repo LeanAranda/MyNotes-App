@@ -36,11 +36,12 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, transform 0.2s ease-in-out;
 }
 
 button:hover {
   border-color: #646cff;
+  transform: translateY(-2px);
 }
 
 button:focus,

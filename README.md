@@ -1,6 +1,7 @@
 # My Notes App
 Simple web application for creating, categorizing, and filtering text notes.
-The project is divided into frontend and backend folders, and runs with Docker.
+
+This project uses Java Spring Boot for the **backend** and Node.js + React for the **frontend**, all deployed using **Docker**.
 
 ---
 

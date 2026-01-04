@@ -153,3 +153,7 @@ chmod +x run.sh
 After starting, wait until all services are fully up and running.
 
 Now you can access the frontend at **http://localhost:5173** and start testing all the features of My Notes App.
+
+### Default Login Credentials 
+- **Username:** `user`
+- **Password:** `1234`

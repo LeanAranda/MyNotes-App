@@ -61,7 +61,13 @@ export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
               <button onClick={(e) => {e.stopPropagation(); onChangeStatus(note.id, note.status)}}>Unarchive</button>
             )}
             <button onClick={(e) => {e.stopPropagation(); setIsEditing(true)}}>Edit</button>
-            <button className="delete-btn" onClick={(e) => {e.stopPropagation(); onDelete(note.id, note.status)}}>
+            <button className="delete-btn" 
+              onClick={(e) => {
+                e.stopPropagation(); 
+                if (window.confirm("Are you sure you want to delete this note? The trash bin is under development.")) {
+                  onDelete(note.id, note.status);
+                  }
+                }}>
                 <img src={trashIcon} alt="Delete" />
             </button>
           </div>

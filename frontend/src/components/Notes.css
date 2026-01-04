@@ -9,6 +9,8 @@
   margin-bottom: 1rem;
 }
 
+
+
 .cards-container{
   display: grid;
   padding-top: 1rem;
@@ -78,4 +80,11 @@
     color: rgb(255, 255, 255);
     padding: 0.5rem 1rem;
     cursor: pointer;
+}
+
+.delete-btn img,
+.delete-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }

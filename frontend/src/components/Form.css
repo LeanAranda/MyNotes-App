@@ -94,3 +94,9 @@ label {
     flex-direction: column;
     gap: 1rem;
 }
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

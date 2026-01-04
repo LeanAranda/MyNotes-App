@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import NoteForm from "./NoteForm";
+import NoteCard from "./NoteCard";
 import "./Notes.css";
 
 export default function NotesList() {
@@ -9,6 +10,8 @@ export default function NotesList() {
     const [showForm, setShowForm] = useState(false);
 
     const token = localStorage.getItem("token");
+
+    // fetch functions
 
     const fetchNotes = async () => {
         const res = await fetch("http://localhost:8080/notes/myNotes/active", {
@@ -26,10 +29,6 @@ export default function NotesList() {
         setShowArchived(false);
     };
 
-    useEffect(() => {
-        fetchNotes();
-    }, []);
-
     const fetchArchivedNotes = async () => {
         const res = await fetch("http://localhost:8080/notes/myNotes/archived", {
             method: "GET",
@@ -45,6 +44,12 @@ export default function NotesList() {
         setArchivedNotes(data);
         setShowArchived(true);
     };
+
+    useEffect(() => {
+        fetchNotes();
+    }, []);
+
+    // card rendering and actions
 
     const renderCard = (note) => (
         <div key={note.id} className="note-card">
@@ -142,6 +147,29 @@ export default function NotesList() {
         setShowForm(false); 
     };
 
+    const updateNote = async (updatedData) => {
+        try {
+            const res = await fetch(`http://localhost:8080/notes/update`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(updatedData),
+            });
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+
+            if (showArchived) {
+                fetchArchivedNotes();
+            } else {
+                fetchNotes();
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
     return (
         <div className="notes-list-container">
             <div className="buttons-container">
@@ -151,13 +179,19 @@ export default function NotesList() {
             </div>
             
             <div className="cards-container">
-                {showForm && <NoteForm onCreate={createNote} />}
+                {showForm && <NoteForm onCreate={createNote} onCancel={() => setShowForm(false)} />}
                 {(showArchived ? archivedNotes : notes)
                     .slice()
-                    .sort(
-                        (a, b) =>
-                            new Date(b.lastModification) - new Date(a.lastModification))
-                            .map(renderCard)}
+                    .sort((a, b) => new Date(b.lastModification) - new Date(a.lastModification))
+                    .map((note) => (
+                        <NoteCard
+                            key={note.id}
+                            note={note}
+                            onUpdate={updateNote}
+                            onDelete={deleteNote}
+                            onChangeStatus={changeStatus}
+                        />
+                    ))}
             </div>
         </div>
     );

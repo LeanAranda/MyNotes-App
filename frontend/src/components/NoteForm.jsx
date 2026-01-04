@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
 
-export default function NoteForm({ onCreate }) {
+export default function NoteForm({ onCreate, onCancel }) {
     const [title, setTitle] = useState(""); 
     const [text, setText] = useState(""); 
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -66,7 +66,10 @@ export default function NoteForm({ onCreate }) {
                         ))}
                         </div>
                     </div>
-                <button type="submit">Create note</button>
+                    <div className="form-buttons">
+                        <button type="submit">Create note</button>
+                        <button type="button" onClick={onCancel}>Cancel</button>
+                    </div>
                 </form>
             
         </div>

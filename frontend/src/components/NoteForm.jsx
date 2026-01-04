@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function NoteForm({ onCreate, onCancel }) {
     const [title, setTitle] = useState(""); 
@@ -12,7 +13,7 @@ export default function NoteForm({ onCreate, onCancel }) {
     useEffect(() => { 
         const fetchCategories = async () => { 
             try { 
-                const res = await fetch("http://localhost:8080/categories/myCategories", { 
+                const res = await fetch(`${API_URL}/categories/myCategories`, { 
                     headers: { 
                         "Content-Type": "application/json", 
                         Authorization: `Bearer ${token}`, 

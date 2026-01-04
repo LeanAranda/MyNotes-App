@@ -32,13 +32,14 @@ export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
           <div className="modification-date">
             <span><strong>Last modification:</strong></span>
             <span>
-              {new Date(note.lastModification).toLocaleString("en-US", {
+              {new Date(`${note.lastModification}Z`).toLocaleString("en-US", {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
                 hour: "numeric",
                 minute: "numeric",
                 hour12: true,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
               })}
             </span>
           </div>

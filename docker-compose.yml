@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:9090
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend/notesApp
+    ports:
+      - "9090:8080"
+    environment:
+      SPRING_DATASOURCE_HOST: db
+      SPRING_DATASOURCE_PORT: 3306
+      SPRING_DATASOURCE_DB: notesdb
+      SPRING_DATASOURCE_USERNAME: root1
+      SPRING_DATASOURCE_PASSWORD: root1
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      JWT_KEY: myjwtkey1234
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    environment:
+      TZ: UTC
+      MYSQL_DATABASE: notesdb
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: root1
+      MYSQL_ROOT_PASSWORD: root1
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck: 
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"] 
+      interval: 10s 
+      timeout: 5s 
+      retries: 5
+
+volumes:
+  db_data:

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NoteForm from "./NoteForm";
 import NoteCard from "./NoteCard";
 import "./Notes.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function NotesList() {
     const [notes, setNotes] = useState([]);
@@ -17,7 +18,7 @@ export default function NotesList() {
     // fetch functions
 
     const fetchNotes = async () => {
-        const res = await fetch("http://localhost:8080/notes/myNotes/active", {
+        const res = await fetch(`${API_URL}/notes/myNotes/active`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -33,7 +34,7 @@ export default function NotesList() {
     };
 
     const fetchArchivedNotes = async () => {
-        const res = await fetch("http://localhost:8080/notes/myNotes/archived", {
+        const res = await fetch(`${API_URL}/notes/myNotes/archived`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +55,7 @@ export default function NotesList() {
                 ? "archived"
                 : "active";
 
-            const res = await fetch(`http://localhost:8080/notes/myNotes/${endpoint}/${categoryId}`, {
+            const res = await fetch(`${API_URL}/notes/myNotes/${endpoint}/${categoryId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -84,7 +85,7 @@ export default function NotesList() {
     useEffect(() => { 
         const fetchCategories = async () => { 
             try { 
-                const res = await fetch("http://localhost:8080/categories/myCategories", { 
+                const res = await fetch(`${API_URL}/categories/myCategories`, { 
                     headers: { 
                         "Content-Type": "application/json", 
                         Authorization: `Bearer ${token}`, 
@@ -107,7 +108,7 @@ export default function NotesList() {
     const changeStatus = async (id, status) => {
         const statusEndpoint = status === "ACTIVE" ? "archive" : "unarchive";
         try {
-            const res = await fetch(`http://localhost:8080/notes/${statusEndpoint}/${id}`, {
+            const res = await fetch(`${API_URL}/notes/${statusEndpoint}/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -131,7 +132,7 @@ export default function NotesList() {
 
     const deleteNote = async (id, status) => {
         try {
-            const res = await fetch(`http://localhost:8080/notes/delete/${id}`, {
+            const res = await fetch(`${API_URL}/notes/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -152,7 +153,7 @@ export default function NotesList() {
     };
 
     const createNote = async (note) => {
-        const res = await fetch("http://localhost:8080/notes/create", {
+        const res = await fetch(`${API_URL}/notes/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -168,7 +169,7 @@ export default function NotesList() {
 
     const updateNote = async (updatedData) => {
         try {
-            const res = await fetch(`http://localhost:8080/notes/update`, {
+            const res = await fetch(`${API_URL}/notes/update`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

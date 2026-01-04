@@ -2,11 +2,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #fde991;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,9 +13,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #ebebeb;
 }
 
 h1 {
@@ -37,6 +31,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s, transform 0.2s ease-in-out;
+  color: white;
 }
 
 button:hover {
@@ -68,8 +63,8 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 95vw;
-  background-color: #fde991;
+  /*background-color: #fde991;*/
+  background-color: #ebebeb;
 }
 
 .header {
@@ -124,19 +119,6 @@ button:focus-visible {
   margin: 1rem 0;
 }
 
-.nav-buttons button {
-  background-color: #f9f9f9;
-  border: 1px solid #007bff;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.nav-buttons button.active {
-  background-color: #007bff;
-  color: white;
-}
-
 .toast-message {
   position: fixed;
   top: 1rem;
@@ -145,13 +127,27 @@ button:focus-visible {
   color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   animation: fadeInOut 3s forwards;
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-10px); }
-  10% { opacity: 1; transform: translateY(0); }
-  90% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-10px); }
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }

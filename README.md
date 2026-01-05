@@ -158,3 +158,8 @@ Now you can access the frontend at **http://localhost:5173** and start testing a
 ### Default Login Credentials 
 - **Username:** `user`
 - **Password:** `1234`
+
+## Live Deployed Version 
+Deployed in Northflank.com
+
+Try the app online at: https://p01--front--7hnk8wmpgxbr.code.run

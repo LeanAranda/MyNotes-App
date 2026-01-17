@@ -138,7 +138,7 @@ You can run the application in two ways:
 docker compose up --build
 ```
 
-### Option 2 – Run script
+### Option 2 – Run script (linux)
 Alternatively, you can use the provided script to set up and start the stack:
 1) Open an integrated terminal in the **root of the project**.
 2) Give execution permission to the script:
@@ -156,8 +156,8 @@ After starting, wait until all services are fully up and running.
 Now you can access the frontend at **http://localhost:5173** and start testing all the features of My Notes App.
 
 ### Default Login Credentials 
-- **Username:** `user`
-- **Password:** `1234`
+- **Username:** `notesUser`
+- **Password:** `notesPassword`
 
 ## Live Deployed Version 
 Deployed in Northflank.com

@@ -33,7 +33,7 @@ public class ApplicationRunner implements CommandLineRunner {
     private void dataInitializer(){
         if(userService.isEmpty() && categoryService.isEmpty()){
 
-            User user = new User("user", "1234");
+            User user = new User("notesUser", "notesPassword");
             userService.create(user);
 
             Category category1 = new Category("Work");

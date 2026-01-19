@@ -126,5 +126,9 @@ public class NoteServiceImpl implements INoteService {
         return noteRepository.findAllByUserAndStatusAndCategoriesContaining(user, status, category);
     }
 
+    @Override
+    public List<Note> getExpiredDeletedNotes(LocalDateTime lastModificationBefore) {
+        return noteRepository.findByStatusAndLastModificationBefore(NoteStatus.DELETED, lastModificationBefore);
+    }
 
 }

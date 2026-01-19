@@ -7,6 +7,7 @@ import com.LeanAranda.notesApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ public interface INoteRepository extends JpaRepository<Note, Long> {
     List<Note> findAllByUserAndStatus(User user, NoteStatus status);
     List<Note> findAllByUserAndStatusAndCategoriesContaining(User user, NoteStatus status, Category category);
 
+    List<Note> findByStatusAndLastModificationBefore(NoteStatus noteStatus, LocalDateTime lastModificationBefore);
     //save
     //update
     //delete (logical)

@@ -91,6 +91,27 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
+    public void dbDeleteById(Long id, User user) {
+        Note note = getByIdAndUser(id, user);
+        noteRepository.delete(note);
+    }
+
+    @Override
+    public void dbDeleteList(List<Note> notes) {
+        noteRepository.deleteAll(notes);
+    }
+
+    @Override
+    public void restore(Long id, User user) {
+        Note note = getByIdAndUser(id, user);
+
+        note.setStatus(NoteStatus.ACTIVE);
+        note.setLastModification(LocalDateTime.now());
+
+        noteRepository.save(note);
+    }
+
+    @Override
     public List<Note> getAllByUser(User user) {
         return noteRepository.findAllByUser(user);
     }
@@ -104,4 +125,6 @@ public class NoteServiceImpl implements INoteService {
     public List<Note> getAllByUserAndCategoryAndStatus(User user, Category category, NoteStatus status) {
         return noteRepository.findAllByUserAndStatusAndCategoriesContaining(user, status, category);
     }
+
+
 }

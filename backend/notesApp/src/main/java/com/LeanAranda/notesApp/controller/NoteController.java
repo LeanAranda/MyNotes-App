@@ -66,6 +66,20 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @DeleteMapping("/dbDelete/{id}")
+    public ResponseEntity<Void> dbDeleteNote(@PathVariable Long id, Authentication authentication){
+        User user = userService.getByUsername(authentication.getName());
+        noteService.dbDeleteById(id, user);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/restore/{id}")
+    public ResponseEntity<Void> restoreNote(@PathVariable Long id, Authentication authentication){
+        User user = userService.getByUsername(authentication.getName());
+        noteService.restore(id, user);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @GetMapping("/myNotes/{id}")
     public ResponseEntity<NoteDto> getNoteById(@PathVariable Long id, Authentication authentication){
         User user = userService.getByUsername(authentication.getName());

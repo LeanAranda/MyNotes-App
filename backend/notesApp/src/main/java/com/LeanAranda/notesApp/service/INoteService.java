@@ -5,6 +5,7 @@ import com.LeanAranda.notesApp.model.Category;
 import com.LeanAranda.notesApp.model.Note;
 import com.LeanAranda.notesApp.model.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface INoteService {
@@ -14,7 +15,11 @@ public interface INoteService {
     void archive(Long id, User user);
     void unarchive(Long id, User user);
     void deleteById(Long id, User user);
+    void dbDeleteById(Long id, User user);
+    void dbDeleteList(List<Note> notes);
+    void restore(Long id, User user);
     List<Note> getAllByUser(User user);
     List<Note> getAllByUserAndStatus(User user, NoteStatus status);
     List<Note> getAllByUserAndCategoryAndStatus(User user, Category category, NoteStatus status);
+
 }

@@ -1,4 +1,4 @@
-.note-form-container{
+.note-form-container {
     width: 250px;
     border: 1px solid #000000;
     border-radius: 8px;
@@ -50,7 +50,8 @@ select {
 
 textarea {
     resize: vertical;
-    min-height: 150px;
+    min-height: 100px;
+    max-height: 340px;
     background-color: #ffffff !important;
     color: #020000 !important;
 }
@@ -88,7 +89,25 @@ label {
     margin-bottom: 1rem;
 }
 
-.text-inputs{
+.categories-container {
+    border: 1px solid #000000;
+    border-radius: 4px;
+    width: 100%;
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.categories-container div {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.text-inputs {
     flex-grow: 1;
     display: flex;
     flex-direction: column;

@@ -50,7 +50,7 @@ export default function NoteForm({ onCreate, onCancel }) {
     };
 
     return (
-        <div className="note-form-container">
+        <div className="note-form-container" id="noteForm">
 
                 <form onSubmit={handleSubmit}>
                     <div className="text-inputs">
@@ -71,12 +71,18 @@ export default function NoteForm({ onCreate, onCancel }) {
                     </div>
                     <div className="categories">
                         <strong>Categories:</strong>
-                        <div>
+                        <div className="categories-container">
                             {categories.map((cat) => (
-                            <label key={cat.id} style={{ marginRight: "1rem" }}>
-                            <input type="checkbox" checked={selectedCategories.includes(cat.id)} onChange={() => toggleCategory(cat.id)}/>
-                            {cat.name}
-                            </label>
+                            <div>
+                                <label key={cat.id} style={{ marginRight: "1rem" }}>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCategories.includes(cat.id)}
+                                    onChange={() => toggleCategory(cat.id)}
+                                />
+                                <span> </span>{cat.name}
+                                </label>
+                            </div>
                         ))}
                         </div>
                     </div>

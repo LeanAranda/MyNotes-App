@@ -62,13 +62,11 @@ select {
   justify-content: space-between;
 }
 
-.note-card-container {
+.note-card-container, #noteForm {
   transition: border-color 0.25s, transform 0.2s ease-in-out;
 }
 
-.note-card-container:hover {
-  border-color: #646cff;
-  
+.note-card-container:hover, #noteForm:hover {
   transform: scale(1.04)
 }
 

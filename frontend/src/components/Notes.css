@@ -115,10 +115,9 @@ select {
   fill: currentColor;
 }
 
-.buttons-container .active-btn {
+.active-btn {
   background-color: #ffffff;
   color: #000000;
-  ;
   border: 1px solid #000000;
   font-weight: bold;
 }

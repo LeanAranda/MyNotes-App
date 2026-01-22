@@ -6,7 +6,7 @@ import colorModeIcon from "./assets/color-mode-white.svg";
 export default function App() {
   // state to track if the user is logged in
   const [logged, setLogged] = useState(!!localStorage.getItem("token"));
-  const [view, setView] = useState("active")
+  const [view, setView] = useState("notes")
   const [isYellowMode, setIsYellowMode] = useState(true);
 
   function handleLogout() {
@@ -27,10 +27,20 @@ export default function App() {
           {logged && <button onClick={handleLogout}>Logout</button>}
         </div>
       </header>
+
+        {logged && ( 
+          <div className="nav-buttons"> 
+            <button onClick={() => setView("notes")} className={view === "notes" ? "active-btn" : ""}>Notes</button> 
+            <button onClick={() => setView("categories")} className={view === "categories" ? "active-btn" : ""}>Categories</button> 
+            <button onClick={() => setView("trash")} className={view === "trash" ? "active-btn" : ""}>Trash</button> 
+          </div> )}
+
         {logged ? (
           <>
             <main className="main-content-logged">
-              <NotesList view={view} />
+              {view === "notes" && <NotesList view="active" />} 
+              {/*view === "categories" && <CategoriesCrud />*/}
+              {/*view === "trash" && <TrashView />*/}
             </main>
           </>
           ) : (

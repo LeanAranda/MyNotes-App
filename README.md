@@ -5,6 +5,11 @@ This project uses Java Spring Boot for the **backend** and Node.js + React for t
 
 ---
 
+## Updates
+See the full list of changes in the [CHANGELOG.md](./CHANGELOG.md).
+
+---
+
 ## Sections
 - [Backend](#backend)
 - [Frontend](#frontend)

@@ -24,5 +24,10 @@ public class NoteCleanupScheduler {
         LocalDateTime cutoff = LocalDateTime.now().minusDays(30);
         List<Note> oldDeletedNotes = noteService.getExpiredDeletedNotes(cutoff);
         noteService.dbDeleteList(oldDeletedNotes);
+
+        //success log
+        if (!oldDeletedNotes.isEmpty()) {
+            System.out.println(LocalDateTime.now() + "  Old notes deleted successfully.");
+        }
     }
 }

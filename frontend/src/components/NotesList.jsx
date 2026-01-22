@@ -141,7 +141,7 @@ export default function NotesList() {
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
             }
-            showMessage("Note deleted successfully");
+            showMessage("Note moved to Trash");
             if (status === "ACTIVE") {
                 fetchNotes();
             } else {
@@ -236,7 +236,11 @@ export default function NotesList() {
 
             <div className="cards-container">
                 {showForm && <NoteForm onCreate={createNote} onCancel={() => setShowForm(false)} />}
-                {(showArchived ? archivedNotes : notes)
+
+                {(showArchived ? archivedNotes : notes).length === 0 ? (
+                    <p>No notes available</p>
+                ) : (
+                (showArchived ? archivedNotes : notes)
                     .slice()
                     .sort((a, b) => new Date(b.lastModification) - new Date(a.lastModification))
                     .map((note) => (
@@ -247,7 +251,8 @@ export default function NotesList() {
                             onDelete={deleteNote}
                             onChangeStatus={changeStatus}
                         />
-                    ))}
+                    ))
+                )}
             </div>
         </div>
     );

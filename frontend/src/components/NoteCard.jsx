@@ -3,12 +3,14 @@ import EditNoteForm from "./EditNoteForm";
 import "./Notes.css";
 import trashIcon from "../assets/trash-white.svg";
 
-export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
+export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeStatus, onRestore, onDeleteForever }) {
   const [isEditing, setIsEditing] = useState(false);
   const token = localStorage.getItem("token");
 
-  const handleCardClick = () => { 
-    setIsEditing(true); 
+  const handleCardClick = () => {
+    if (!trashed) {
+      setIsEditing(true);
+    }
   };
 
   return (
@@ -18,59 +20,75 @@ export default function NoteCard({ note, onUpdate, onDelete, onChangeStatus }) {
           note={note}
           onUpdate={(updatedData) => {
             onUpdate(updatedData);
-            setIsEditing(false); 
+            setIsEditing(false);
           }}
           onCancel={() => setIsEditing(false)}
         />
       ) : (
         <>
-        <div className="note-card">
-          <div className="content">
-            <h3>{note.title}</h3>
-            <p>{note.text}</p>
-          </div>
-          <div className="modification-date">
-            <span><strong>Last modification:</strong></span>
-            <span>
-              {new Date(`${note.lastModification}Z`).toLocaleString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-              })}
-            </span>
-          </div>
-          <div className="categories">
-            <strong>Categories:</strong>{" "}
-            <div className="categories-list">
-              {note.categories.map((c, index) => (
-                <span key={index} className="category-item">
-                  {c.name}
-                </span>
-              ))}
+          <div className="note-card">
+            <div className="content">
+              <h3>{note.title}</h3>
+              <p>{note.text}</p>
             </div>
-          </div>
-          <div className="card-buttons-container">
-            {note.status === "ACTIVE" && (
-              <button onClick={(e) => {e.stopPropagation(); onChangeStatus(note.id, note.status)}}>Archive</button>
-            )}
-            {note.status === "ARCHIVED" && (
-              <button onClick={(e) => {e.stopPropagation(); onChangeStatus(note.id, note.status)}}>Unarchive</button>
-            )}
-            <button onClick={(e) => {e.stopPropagation(); setIsEditing(true)}}>Edit</button>
-            <button className="delete-btn" 
-              onClick={(e) => {
-                e.stopPropagation(); 
-                if (window.confirm("Are you sure you want to delete this note? The trash bin is under development.")) {
-                  onDelete(note.id, note.status);
-                  }
-                }}>
-                <img src={trashIcon} alt="Delete" />
-            </button>
-          </div>
+            <div className="modification-date">
+              <span><strong>Last modification:</strong></span>
+              <span>
+                {new Date(`${note.lastModification}Z`).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                  timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                })}
+              </span>
+            </div>
+            <div className="categories">
+              <strong>Categories:</strong>{" "}
+              <div className="categories-list">
+                {note.categories.map((c, index) => (
+                  <span key={index} className="category-item">
+                    {c.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="card-buttons-container">
+
+              {trashed ? (
+                <>
+                  <button onClick={(e) => { e.stopPropagation(); onRestore(note.id); }}>Restore</button>
+                  <button className="delete-btn"
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      if (window.confirm("Are you sure you want to delete this note? This action cannot be undone.")) {
+                        onDeleteForever(note.id); 
+                      }
+                    }}>
+                    Delete Forever
+                  </button>
+                </>
+              ) : (
+                <>
+                {note.status === "ACTIVE" && (
+                  <button onClick={(e) => { e.stopPropagation(); onChangeStatus(note.id, note.status) }}>Archive</button>
+                )}
+                {note.status === "ARCHIVED" && (
+                  <button onClick={(e) => { e.stopPropagation(); onChangeStatus(note.id, note.status) }}>Unarchive</button>
+                )}
+                <button onClick={(e) => { e.stopPropagation(); setIsEditing(true) }}>Edit</button>
+                <button className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(note.id, note.status);
+                  }}>
+                  <img src={trashIcon} alt="Delete" />
+                </button>
+                </>
+              )}  
+            </div>
           </div>
         </>
       )}

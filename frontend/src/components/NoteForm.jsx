@@ -51,11 +51,23 @@ export default function NoteForm({ onCreate, onCancel }) {
 
     return (
         <div className="note-form-container">
-            
+
                 <form onSubmit={handleSubmit}>
                     <div className="text-inputs">
-                        <input type="text" placeholder="Title" required value={title} onChange={(e) => setTitle(e.target.value)}/>
-                        <textarea placeholder="Text" maxLength={255} value={text} onChange={(e) => setText(e.target.value)}/>
+                        <input 
+                            type="text" 
+                            placeholder="Title" 
+                            maxLength={50} 
+                            value={title} 
+                            required 
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <textarea 
+                            placeholder="Text" 
+                            maxLength={510} 
+                            value={text} 
+                            onChange={(e) => setText(e.target.value)}
+                        />
                     </div>
                     <div className="categories">
                         <strong>Categories:</strong>

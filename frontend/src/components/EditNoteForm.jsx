@@ -55,12 +55,13 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
             type="text"
             placeholder="Title"
             required
+            maxLength={50}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
             placeholder="Text"
-            maxLength={255}
+            maxLength={510}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />

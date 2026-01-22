@@ -1,7 +1,5 @@
 # My Notes - Updates
 
----
-
 ## Version 1.1 - [2026-01-22]
 
 ### New Features
@@ -16,13 +14,9 @@ DELETE  /notes/dbDelete/{id}    → permanently delete a note from the database
 POST    /notes/restore/{id}     → restore a note from the trash back to active status
 ```
 
----
-
 ## Version 1.0 [2026-01-17] 
 ### Initial release of **My Notes App** 
 - User authentication (login).
 - Create, update, and delete notes.
 - Category filters.
 - Archive and unarchive functionality.
-
----

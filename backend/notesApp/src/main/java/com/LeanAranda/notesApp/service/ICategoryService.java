@@ -10,6 +10,8 @@ import java.util.Set;
 public interface ICategoryService {
     Category getByIdAndUser(Long id, User user);
     Category create(Category category, User user);
+    Category update(Long id, User user, String name);
+    void delete(Long id, User user);
     List<Category> getAllByUser(User user);
     List<Category> getAllByIds(List<Long> ids);
     Set<Category> getAllByNote(Note note);

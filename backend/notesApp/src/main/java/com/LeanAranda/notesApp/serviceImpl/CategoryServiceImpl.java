@@ -33,6 +33,27 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
+    public Category update(Long id, User user, String name) {
+        Category category = getByIdAndUser(id, user);
+        if (!category.getName().equals(name)) {
+            category.setName(name);
+        }
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void delete(Long id, User user) {
+        Category category = getByIdAndUser(id, user);
+
+        for(Note note : category.getNotes()){
+            note.getCategories().remove(category);
+        }
+        category.getNotes().clear();
+
+        categoryRepository.delete(category);
+    }
+
+    @Override
     public List<Category> getAllByUser(User user) {
         return categoryRepository.findAllByUser(user);
     }

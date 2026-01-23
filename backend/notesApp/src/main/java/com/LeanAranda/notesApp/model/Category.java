@@ -19,7 +19,7 @@ public class Category {
     @Setter(AccessLevel.NONE)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String name;
 
     @ManyToOne

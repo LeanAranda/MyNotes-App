@@ -17,6 +17,7 @@ public interface INoteService {
     void deleteById(Long id, User user);
     void dbDeleteById(Long id, User user);
     void dbDeleteList(List<Note> notes);
+    void deleteByUser(User user);
     void restore(Long id, User user);
     List<Note> getAllByUser(User user);
     List<Note> getAllByUserAndStatus(User user, NoteStatus status);

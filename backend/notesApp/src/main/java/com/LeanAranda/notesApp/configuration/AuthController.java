@@ -1,6 +1,7 @@
 package com.LeanAranda.notesApp.configuration;
 
 import com.LeanAranda.notesApp.dto.LoginRequest;
+import com.LeanAranda.notesApp.dto.UserDto;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,9 +31,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody User user){
-        userService.create(new User(user.getUsername(), user.getPassword()));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<?> register(@RequestBody UserDto userDto){
+        userService.create(new User(userDto.getUsername(), userDto.getPassword()));
+        return ResponseEntity.ok(Map.of( "message", "User created successfully", "username", userDto.getUsername() ));
     }
 
     @PostMapping("/login")

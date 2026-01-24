@@ -5,6 +5,7 @@ import com.LeanAranda.notesApp.model.Note;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.repository.ICategoryRepository;
 import com.LeanAranda.notesApp.service.ICategoryService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,6 +43,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id, User user) {
         Category category = getByIdAndUser(id, user);
 
@@ -51,6 +53,15 @@ public class CategoryServiceImpl implements ICategoryService {
         category.getNotes().clear();
 
         categoryRepository.delete(category);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByUser(User user) {
+        List<Category> categories = getAllByUser(user);
+        for (Category category : categories) {
+            delete(category.getId(), user);
+        }
     }
 
     @Override

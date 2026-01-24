@@ -102,6 +102,11 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
+    public void deleteByUser(User user) {
+        noteRepository.deleteAll(getAllByUser(user));
+    }
+
+    @Override
     public void restore(Long id, User user) {
         Note note = getByIdAndUser(id, user);
 

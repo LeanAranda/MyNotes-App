@@ -7,6 +7,8 @@ public interface IUserService {
     User getByUsername(String username);
     boolean existsByUsername(String username);
     User create(User user);
+    User changePassword(User user, String oldPassword, String newPassword);
+    void delete(User user);
 
     //this method checks if the table "user" is empty, to add a new user when the server starts
     boolean isEmpty();

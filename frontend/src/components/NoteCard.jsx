@@ -46,14 +46,20 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
               </span>
             </div>
             <div className="categories">
-              <strong>Categories:</strong>{" "}
-              <div className="categories-list">
-                {note.categories.map((c, index) => (
-                  <span key={index} className="category-item">
-                    {c.name}
-                  </span>
-                ))}
-              </div>
+              {note.categories.length === 0 ? (
+                <em>No categories assigned</em>
+              ) : (
+                <>
+                  <strong>Categories:</strong>
+                  <div className="categories-list">
+                      {note.categories.map((c, index) => (
+                        <span key={index} className="category-item">
+                          {c.name}
+                        </span>
+                      ))}
+                  </div>
+                </>
+              )}
             </div>
             <div className="card-buttons-container">
 

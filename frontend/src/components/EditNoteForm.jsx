@@ -69,7 +69,10 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
         <div className="categories">
           <strong>Categories:</strong>
           <div className="categories-container">
-            {categories.map((cat) => (
+            {categories.length === 0 ? (
+                    <h4>No categories available</h4>
+                ) : (
+            categories.map((cat) => (
               <div key={cat.id}>
                 <label style={{ marginRight: "1rem" }}>
                   <input
@@ -80,7 +83,7 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
                   <span> </span>{cat.name}
                 </label>
               </div>
-            ))}
+                )))}
           </div>
         </div>
         <div className="form-buttons">

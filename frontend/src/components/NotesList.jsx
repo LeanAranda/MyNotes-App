@@ -194,7 +194,6 @@ export default function NotesList() {
     return (
         <div className="notes-list-container">
             <div className="top-bar">
-                {/*message && ( <div className="toast-message"> {message} </div> )*/}
 
                 <div className="buttons-container">
                     <button onClick={fetchNotes} className={showArchived ? "" : "active-btn"} >View Active</button>

@@ -112,7 +112,10 @@ export default function CategoryList() {
                 </div>
             </div>
             <div className="category-list-section">
-                {categories.map((category) => (
+                {categories.length === 0 ? (
+                    <h4>No categories available</h4>
+                ) : (
+                categories.map((category) => (
                     <div key={category.id}>
                         <form 
                             className="category-form"
@@ -147,7 +150,7 @@ export default function CategoryList() {
                             </button>
                         </form>
                     </div>
-                ))}
+                )))}
             </div>
             
         </div>

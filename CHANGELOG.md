@@ -1,5 +1,29 @@
 # My Notes - Updates
 
+## Version 1.2 - [2026-01-24]
+
+### Notes & Categories
+- Categories are now fully manageable: you can create new ones, rename existing ones, and remove those you no longer need.
+- Increased note text limit to 510 characters.
+- Restricted note title to 50 characters.
+
+### User Interface
+- Improved category selection when creating or editing notes.
+- Toast notifications are now centralized with a new animation.
+- Refined buttons.
+- Clear messages are shown when there are no categories available or when a note has no categories assigned.
+
+### Fixes
+- Fixed a minor issue with category list rendering that caused console warnings.
+
+### New Endpoints
+```http
+POST    /categories/create          → create a new category
+POST    /categories/update          → update an existing category
+DELETE  /categories/delete/{id}     → delete a category by ID
+```
+---
+
 ## Version 1.1 - [2026-01-22]
 
 ### New Features
@@ -14,9 +38,14 @@ DELETE  /notes/dbDelete/{id}    → permanently delete a note from the database
 POST    /notes/restore/{id}     → restore a note from the trash back to active status
 ```
 
+---
+
 ## Version 1.0 [2026-01-17] 
+
 ### Initial release of **My Notes App** 
 - User authentication (login).
 - Create, update, and delete notes.
 - Category filters.
 - Archive and unarchive functionality.
+
+---

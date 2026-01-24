@@ -192,3 +192,13 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
 }
+
+.error{
+  text-align: center;
+  color: red;
+  border: #f52626 1px solid;
+  background-color: #ffe7e7;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+}

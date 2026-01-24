@@ -30,7 +30,7 @@ export default function LoginForm({ onSuccess }) {
     }
 
     return (
-        <div className="form-container">
+        <div className="login-form-container">
             <form onSubmit={handleSubmit}>
                 <h2>Login</h2>
                 <label>Username</label>
@@ -46,9 +46,8 @@ export default function LoginForm({ onSuccess }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <br />
                 <button type="submit">Login</button>
-                {error && <p>{error}</p>}
+                {error && <span className="error">{error}</span>}
             </form>
         </div>
     );

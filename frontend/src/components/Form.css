@@ -11,20 +11,20 @@
     justify-content: space-around;
 }
 
-.form-container {
+.login-form-container {
     border: 1px solid #000000;
     border-radius: 8px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    margin: 1rem 0;
     background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 1.5rem 3rem 3rem 3rem;
     color: rgb(0, 0, 0);
     max-width: 30%;
+}
+
+.login-form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
 }
 
 h2 {

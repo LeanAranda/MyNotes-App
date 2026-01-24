@@ -199,6 +199,6 @@ button:focus-visible {
   border: #f52626 1px solid;
   background-color: #ffe7e7;
   border-radius: 4px;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   padding: 0.25rem;
 }

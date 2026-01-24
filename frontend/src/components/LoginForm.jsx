@@ -37,6 +37,7 @@ export default function LoginForm({ onSuccess }) {
                 <input
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    maxLength={15}
                     required
                 />
                 <label>Password</label>
@@ -46,6 +47,7 @@ export default function LoginForm({ onSuccess }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
+                <br />
                 <button type="submit">Login</button>
                 {error && <span className="error">{error}</span>}
             </form>

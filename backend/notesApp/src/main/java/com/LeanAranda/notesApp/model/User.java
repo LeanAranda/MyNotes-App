@@ -17,7 +17,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     private long id;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 15)
     private String username;
 
     @Column(nullable = false)

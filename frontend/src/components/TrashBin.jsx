@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import NoteCard from "./NoteCard";
 import "./Notes.css";
 const API_URL = import.meta.env.VITE_API_URL;
+import { useToast } from "./ToastMessage.jsx";
 
 export default function TrashView() {
     const [deletedNotes, setDeletedNotes] = useState([]);
-    const [message, setMessage] = useState(null);
+    const { showMessage } = useToast();
 
     const token = localStorage.getItem("token");
 
@@ -68,15 +69,9 @@ export default function TrashView() {
         }
     };
 
-    // toast message handler
-    const showMessage = (text) => {
-        setMessage(text);
-        setTimeout(() => setMessage(null), 3000); // 3 secs
-    };
-
     return (
         <div className="notes-list-container">
-            {message && ( <div className="toast-message"> {message} </div> )}
+            {/*message && ( <div className="toast-message"> {message} </div> )*/}
 
             <h4 style={{textAlign: "center"}}>Notes in Trash will be permanently deleted after 30 days.</h4>
 

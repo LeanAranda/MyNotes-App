@@ -70,8 +70,8 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
           <strong>Categories:</strong>
           <div className="categories-container">
             {categories.map((cat) => (
-              <div>
-                <label key={cat.id} style={{ marginRight: "1rem" }}>
+              <div key={cat.id}>
+                <label style={{ marginRight: "1rem" }}>
                   <input
                     type="checkbox"
                     checked={selectedCategories.includes(cat.id)}

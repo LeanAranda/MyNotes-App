@@ -4,6 +4,7 @@ import NotesList from "./components/NotesList";
 import TrashView from "./components/TrashBin.jsx";
 import CategoryList from "./components/CategoryList.jsx";
 import colorModeIcon from "./assets/color-mode-white.svg";
+import { ToastProvider } from "./components/ToastMessage.jsx";
 
 export default function App() {
   // state to track if the user is logged in
@@ -19,6 +20,7 @@ export default function App() {
   const toggleMode = () => { setIsYellowMode(!isYellowMode); };
 
   return (
+    <ToastProvider>
     <div className="page-container" style={{ backgroundColor: isYellowMode ? "#fde991" : "#ebebeb" }}>
       <header className="navbar">
         <h2>My Notes</h2>
@@ -54,5 +56,6 @@ export default function App() {
         <p>© 2026 Lean Aranda</p>
       </footer>
     </div>
+    </ToastProvider>
   );
 }

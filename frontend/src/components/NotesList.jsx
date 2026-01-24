@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import NoteForm from "./NoteForm";
 import NoteCard from "./NoteCard";
+import plusIcon from "../assets/plus-mark.svg";
 import "./Notes.css";
+import { useToast } from "./ToastMessage.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function NotesList() {
@@ -11,7 +13,7 @@ export default function NotesList() {
     const [showForm, setShowForm] = useState(false);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [message, setMessage] = useState(null);
+    const { showMessage } = useToast();
 
     const token = localStorage.getItem("token");
 
@@ -189,21 +191,17 @@ export default function NotesList() {
         }
     };
 
-    // toast message handler
-    const showMessage = (text) => { 
-        setMessage(text); 
-        setTimeout(() => setMessage(null), 3000); // 3 secs
-    };
-
     return (
         <div className="notes-list-container">
             <div className="top-bar">
-                {message && ( <div className="toast-message"> {message} </div> )}
+                {/*message && ( <div className="toast-message"> {message} </div> )*/}
 
                 <div className="buttons-container">
                     <button onClick={fetchNotes} className={showArchived ? "" : "active-btn"} >View Active</button>
                     <button onClick={fetchArchivedNotes} className={showArchived ? "active-btn" : ""}>View Archived</button>
-                    <button onClick={() => setShowForm(!showForm)}>+</button>
+                    <button className="btn" onClick={() => setShowForm(!showForm)}>
+                        <img src={plusIcon} alt="Add" />
+                    </button>
                 </div>
                 
                 <div className="filter-container">

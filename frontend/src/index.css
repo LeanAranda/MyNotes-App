@@ -104,16 +104,17 @@ button:focus-visible {
   margin: 1rem 0;
 }
 
-.toast-message {
+.toast {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  background-color: #28a745;
-  color: white;
+  background-color: #83ffa0;
+  color: rgb(0, 0, 0);
   padding: 0.75rem 1.25rem;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  animation: fadeInOut 3s forwards;
+  /*animation: fadeInOut 3s forwards;*/
+  animation: slideInOut 3s forwards;
 }
 
 @keyframes fadeInOut {
@@ -135,4 +136,55 @@ button:focus-visible {
     opacity: 0;
     transform: translateY(-10px);
   }
+}
+
+@keyframes slideInOut {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+
+.delete-btn {
+  background-color: #f52626;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.delete-btn img,
+.delete-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.active-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  font-weight: bold;
+}
+
+.btn img,
+.btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

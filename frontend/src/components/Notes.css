@@ -98,24 +98,3 @@ select {
   justify-content: space-between;
   gap: 0.5rem;
 }
-
-.delete-btn {
-  background-color: #f52626;
-  color: rgb(255, 255, 255);
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.delete-btn img,
-.delete-btn svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
-
-.active-btn {
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
-  font-weight: bold;
-}

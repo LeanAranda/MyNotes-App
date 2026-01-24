@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./CategoryList.css";
 import trashIcon from "../assets/trash-white.svg";
 import checkIcon from "../assets/check-mark.svg";
+import plusIcon from "../assets/plus-mark.svg";
+import { useToast } from "./ToastMessage.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState("");
-
+    const { showMessage } = useToast();
+    
     const token = localStorage.getItem("token");
 
     const fetchCategories = async () => {
@@ -47,6 +50,7 @@ export default function CategoryList() {
             if (!res.ok) throw new Error(`Error ${res.status}`);
             setNewCategory("");
             fetchCategories();
+            showMessage("Category added successfully");
         } catch (err) {
             console.error(err);
         }
@@ -64,6 +68,7 @@ export default function CategoryList() {
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             fetchCategories();
+            showMessage("Category updated successfully");
         }
         catch (err) {
             console.error(err);
@@ -81,6 +86,7 @@ export default function CategoryList() {
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             fetchCategories();
+            showMessage("Category deleted successfully");
         } catch (err) {
             console.error(err);
         }
@@ -90,7 +96,7 @@ export default function CategoryList() {
         <div className="category-list-container">
             <div className="category-list-section">
                 <div>
-                    <form action="" className="category-form" onSubmit={handleAddCategory}>
+                    <form className="category-form" onSubmit={handleAddCategory}>
                         <input 
                             type="text" 
                             placeholder="New Category" 
@@ -99,7 +105,9 @@ export default function CategoryList() {
                             maxLength={20}
                             required
                         />
-                        <button type="submit">+</button>
+                        <button type="submit" className="btn">
+                            <img src={plusIcon} alt="Add" />
+                        </button>
                     </form>
                 </div>
             </div>
@@ -127,7 +135,7 @@ export default function CategoryList() {
                                 }}
                                 required
                             />
-                            <button type="submit" className="save-btn">
+                            <button type="submit" className="btn">
                                 <img src={checkIcon} alt="Save" />
                             </button>
                             <button 

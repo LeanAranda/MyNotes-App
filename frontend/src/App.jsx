@@ -2,6 +2,7 @@ import { useState } from 'react'
 import LoginForm from './components/LoginForm.jsx'
 import NotesList from "./components/NotesList";
 import TrashView from "./components/TrashBin.jsx";
+import CategoryList from "./components/CategoryList.jsx";
 import colorModeIcon from "./assets/color-mode-white.svg";
 
 export default function App() {
@@ -40,7 +41,7 @@ export default function App() {
           <>
             <main className="main-content-logged">
               {view === "notes" && <NotesList view="active" />} 
-              {/*view === "categories" && <CategoriesCrud />*/}
+              {view === "categories" && <CategoryList />}
               {view === "trash" && <TrashView />}
             </main>
           </>

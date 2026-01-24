@@ -6,6 +6,7 @@
 - Categories are now fully manageable: you can create new ones, rename existing ones, and remove those you no longer need.
 - Increased note text limit to 510 characters.
 - Restricted note title to 50 characters.
+- Restricted category name to 20 characters.
 
 ### User Interface
 - Improved category selection when creating or editing notes.

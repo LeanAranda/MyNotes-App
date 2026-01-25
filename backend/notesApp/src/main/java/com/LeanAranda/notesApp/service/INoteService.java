@@ -23,4 +23,5 @@ public interface INoteService {
     List<Note> getAllByUserAndStatus(User user, NoteStatus status);
     List<Note> getAllByUserAndCategoryAndStatus(User user, Category category, NoteStatus status);
     List<Note> getExpiredDeletedNotes(LocalDateTime lastModificationBefore);
+    void addTutorialNotes(User user);
 }

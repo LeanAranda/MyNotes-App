@@ -7,6 +7,7 @@ import com.LeanAranda.notesApp.model.Note;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.repository.ICategoryRepository;
 import com.LeanAranda.notesApp.repository.INoteRepository;
+import com.LeanAranda.notesApp.service.ICategoryService;
 import com.LeanAranda.notesApp.service.INoteService;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,11 @@ import java.util.List;
 @Service
 public class NoteServiceImpl implements INoteService {
     private final INoteRepository noteRepository;
-    private final ICategoryRepository categoryRepository;
+    private final ICategoryService categoryService;
 
-    public NoteServiceImpl(INoteRepository noteRepository, ICategoryRepository categoryRepository) {
+    public NoteServiceImpl(INoteRepository noteRepository, ICategoryService categoryService) {
         this.noteRepository = noteRepository;
-        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
     }
 
 
@@ -36,7 +37,7 @@ public class NoteServiceImpl implements INoteService {
     public Note create(Note note, List<Long> categoryIds, User user) {
         note.setUser(user);
 
-        List<Category> categories = categoryRepository.findAllById(categoryIds);
+        List<Category> categories = categoryService.getAllByIds(categoryIds);
         note.getCategories().addAll(categories);
 
         note.setStatus(NoteStatus.ACTIVE);
@@ -54,7 +55,7 @@ public class NoteServiceImpl implements INoteService {
         note.setText(text);
         note.setLastModification(LocalDateTime.now());
 
-        List<Category> categories = categoryRepository.findAllById(categoryIds);
+        List<Category> categories = categoryService.getAllByIds(categoryIds);
         note.setCategories(new HashSet<>(categories));
 
         return noteRepository.save(note);
@@ -134,6 +135,25 @@ public class NoteServiceImpl implements INoteService {
     @Override
     public List<Note> getExpiredDeletedNotes(LocalDateTime lastModificationBefore) {
         return noteRepository.findByStatusAndLastModificationBefore(NoteStatus.DELETED, lastModificationBefore);
+    }
+
+    @Override
+    public void addTutorialNotes(User user) {
+        Category category = categoryService.create(new Category("Tutorial"), user);
+
+        Note note1 = new Note("Organize with Tags", "You can tag your notes and filter them using the toolbar above.");
+        Note note2 = new Note("Archived Notes", "You can archive or unarchive your notes with a single click.");
+        Note note3 = new Note("Deleting Notes ", "Click the trash can to remove notes you no longer need.");
+        Note note4 = new Note("Getting Started", "Click the '+' button to create a new note. Double‑tap any note to open it for editing.");
+        Note note5 = new Note("Welcome to My Notes App!", "This is your first note. Here you can create, edit, and organize your ideas with ease.");
+
+        create(note1, List.of(category.getId()), user);
+        note2 = create(note2, List.of(category.getId()), user);
+        create(note3, List.of(category.getId()), user);
+        create(note4, List.of(category.getId()), user);
+        create(note5, List.of(category.getId()), user);
+
+        archive(note2.getId(), user);
     }
 
 }

@@ -2,6 +2,8 @@ package com.LeanAranda.notesApp.serviceImpl;
 
 import com.LeanAranda.notesApp.exception.UserNotFoundException;
 import com.LeanAranda.notesApp.exception.UsernameAlreadyExistsException;
+import com.LeanAranda.notesApp.model.Category;
+import com.LeanAranda.notesApp.model.Note;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.repository.IUserRepository;
 import com.LeanAranda.notesApp.service.ICategoryService;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -45,7 +49,9 @@ public class UserServiceImpl implements IUserService {
     public User create(User user) {
         if(existsByUsername(user.getUsername())) throw new UsernameAlreadyExistsException(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        User newUser = userRepository.save(user);
+        noteService.addTutorialNotes(newUser);
+        return newUser;
     }
 
     @Override

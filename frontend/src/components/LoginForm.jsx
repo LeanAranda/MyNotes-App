@@ -23,6 +23,8 @@ export default function LoginForm({ onSuccess }) {
             const data = await res.json();
             // saves the token in localStorage
             localStorage.setItem("token", data.token);
+            // saves the username in localStorage
+            localStorage.setItem("username", username);
             onSuccess?.();
         } catch (err) {
             setError(err.message);

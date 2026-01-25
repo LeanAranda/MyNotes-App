@@ -193,6 +193,16 @@ button:focus-visible {
   align-items: center;
 }
 
+.user-btn {
+  font-size: 1em;
+  gap: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border: 1px solid white;
+}
+
 .error{
   text-align: center;
   color: red;

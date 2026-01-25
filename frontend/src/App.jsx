@@ -4,8 +4,10 @@ import RegisterForm from './components/RegisterForm.jsx'
 import NotesList from "./components/NotesList";
 import TrashView from "./components/TrashBin.jsx";
 import CategoryList from "./components/CategoryList.jsx";
+import UserMenu from "./components/UserMenu.jsx";
 import colorModeIcon from "./assets/color-mode-white.svg";
 import { ToastProvider } from "./components/ToastMessage.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function App() {
   // state to track if the user is logged in
@@ -16,7 +18,26 @@ export default function App() {
 
   function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     setLogged(false);
+  }
+
+  function handleDeleteAccount() {
+    try {
+      const token = localStorage.getItem("token");
+      fetch(`${API_URL}/users/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+        handleLogout();
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const toggleMode = () => { setIsYellowMode(!isYellowMode); };
@@ -31,7 +52,11 @@ export default function App() {
             <img src={colorModeIcon} width={32} height={32} alt="Toggle Color Mode" />
           </button>
           {logged ? (
-            <button onClick={handleLogout}>Logout</button>
+            <UserMenu 
+              username={localStorage.getItem("username")}
+              onLogout={handleLogout} 
+              onDeleteAccount={handleDeleteAccount} 
+            />
           ) : (
             <button onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}>
               {authMode === "login" ? "Register" : "Login"}

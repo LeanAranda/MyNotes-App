@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import LoginForm from './components/LoginForm.jsx'
+import RegisterForm from './components/RegisterForm.jsx'
 import NotesList from "./components/NotesList";
 import TrashView from "./components/TrashBin.jsx";
 import CategoryList from "./components/CategoryList.jsx";
@@ -9,6 +10,7 @@ import { ToastProvider } from "./components/ToastMessage.jsx";
 export default function App() {
   // state to track if the user is logged in
   const [logged, setLogged] = useState(!!localStorage.getItem("token"));
+  const [authMode, setAuthMode] = useState("login"); // "login" or "register"
   const [view, setView] = useState("notes")
   const [isYellowMode, setIsYellowMode] = useState(true);
 
@@ -28,7 +30,13 @@ export default function App() {
           <button onClick={toggleMode}>
             <img src={colorModeIcon} width={32} height={32} alt="Toggle Color Mode" />
           </button>
-          {logged && <button onClick={handleLogout}>Logout</button>}
+          {logged ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <button onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}>
+              {authMode === "login" ? "Register" : "Login"}
+            </button>
+          )}
         </div>
       </header>
 
@@ -49,7 +57,11 @@ export default function App() {
           </>
           ) : (
             <main className="main-content">
-              <LoginForm onSuccess={() => setLogged(true)} />
+              {authMode === "login" ? (
+                <LoginForm onSuccess={() => setLogged(true)} />
+              ) : (
+                <RegisterForm onSuccess={() => setAuthMode("login")} />
+              )}
             </main>
           )}
       <footer className="footer">

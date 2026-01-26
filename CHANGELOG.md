@@ -1,5 +1,29 @@
 # My Notes - Updates
 
+## Version 1.3 - [2026-01-26]
+
+### Authentication & User Management
+- New **register form**: You can now create your account directly from the app.
+- New **user menu**: full account management (change password, delete account, logout).
+- Restricted username length to 15 characters.
+- Username is now saved in localStorage for persistence.
+- Automatic tutorial note creation when a new user registers.
+- Added global exception handler and UserNotFoundException on the backend.
+- New user service methods: register, delete, and changePassword.
+
+### User Interface
+- Updated login styles.
+- Added icons to section select navigation.
+- Responsive improvements for better usability on mobile devices.
+
+### New endpoints
+```http
+POST    /users/changePassword       → change password (requires old and new password)
+DELETE  /users/delete               → delete the logged-in user
+```
+
+---
+
 ## Version 1.2 - [2026-01-24]
 
 ### Notes & Categories

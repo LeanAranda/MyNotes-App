@@ -16,12 +16,7 @@ body {
   background-color: #ebebeb;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-h4{
+h4 {
   text-align: center;
 }
 
@@ -101,14 +96,16 @@ button:focus-visible {
   margin: 0;
 }
 
-.nav-buttons {
+.nav-buttons,
+.section-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin: 1rem 0;
 }
 
-.nav-buttons button{
+.nav-buttons button,
+.section-buttons button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -153,14 +150,17 @@ button:focus-visible {
     transform: translateX(100%);
     opacity: 0;
   }
+
   10% {
     transform: translateX(0);
     opacity: 1;
   }
+
   90% {
     transform: translateX(0);
     opacity: 1;
   }
+
   100% {
     transform: translateX(100%);
     opacity: 0;
@@ -209,7 +209,7 @@ button:focus-visible {
   border: 1px solid white;
 }
 
-.error{
+.error {
   text-align: center;
   color: red;
   border: #f52626 1px solid;
@@ -217,4 +217,36 @@ button:focus-visible {
   border-radius: 4px;
   margin-top: 1rem;
   padding: 0.25rem;
+}
+
+/* responsive */
+
+@media (max-width: 600px) {
+  .nav-buttons {
+    flex-direction: column;
+    align-items: end;
+    gap: 0.4rem;
+  }
+
+  .navbar h2 {
+    font-size: 2rem;
+  }
+
+  .section-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .section-buttons button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-buttons img,
+  .nav-buttons svg {
+    width: 20px;
+    height: 20px;
+  }
 }

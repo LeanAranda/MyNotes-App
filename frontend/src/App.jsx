@@ -55,11 +55,15 @@ export default function App() {
             <img src={colorModeIcon} width={32} height={32} alt="Toggle Color Mode" />
           </button>
           {logged ? (
-            <UserMenu 
-              username={localStorage.getItem("username")}
-              onLogout={handleLogout} 
-              onDeleteAccount={handleDeleteAccount} 
-            />
+            <>
+            <div className='user-container'>
+              <UserMenu 
+                username={localStorage.getItem("username")}
+                onLogout={handleLogout} 
+                onDeleteAccount={handleDeleteAccount} 
+              />
+            </div>
+            </>
           ) : (
             <button onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}>
               {authMode === "login" ? "Register" : "Login"}
@@ -69,7 +73,7 @@ export default function App() {
       </header>
 
         {logged && ( 
-          <div className="nav-buttons"> 
+          <div className="section-buttons"> 
             <button onClick={() => setView("notes")} className={view === "notes" ? "active-btn" : ""}>
               Notes
               <img src={notesIcon} width={30} height={30} alt="Notes" />  

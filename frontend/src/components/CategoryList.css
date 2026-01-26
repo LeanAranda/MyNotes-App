@@ -46,3 +46,11 @@
     margin-bottom: 0.5rem;
     border-radius: 4px;
 }
+
+/* responsive */
+
+@media (max-width: 600px) {
+  .category-list-container {
+    width: 110%;
+  }
+}

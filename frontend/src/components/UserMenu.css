@@ -15,7 +15,6 @@
     border-radius: 8px;
     margin-top: 0.2rem;
     min-width: 155px;
-    border: 1px solid white;
 }
 
 @keyframes dropdownFade {
@@ -44,7 +43,6 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-bottom: 1px solid white;
 }
 
 .dropdown-item:first-child {
@@ -53,7 +51,6 @@
 }
 
 .dropdown-item:last-child {
-    border-bottom: none;
     border-end-start-radius: 8px;
     border-end-end-radius: 8px;
 }
@@ -63,4 +60,17 @@
     color: black;
     border: 1px solid black;
     transform: none;
+}
+
+.dropdown-item:focus {
+    outline: none;
+}
+
+#delete-account-btn{
+    color: #f52626;
+}
+
+#delete-account-btn:hover{
+    color: white;
+    background-color: #f52626;
 }

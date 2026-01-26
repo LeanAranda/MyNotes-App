@@ -27,7 +27,7 @@ h4{
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid white;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -106,6 +106,12 @@ button:focus-visible {
   justify-content: center;
   gap: 1rem;
   margin: 1rem 0;
+}
+
+.nav-buttons button{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .toast {

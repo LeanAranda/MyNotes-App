@@ -18,18 +18,18 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
       {open && (
         <div className={`dropdown ${open ? "show" : ""}`}>
           <button className="dropdown-item">Change Password</button>
-          <button className="dropdown-item" 
+          <button className="dropdown-item" id="delete-account-btn"
             onClick={(e) => { 
               e.stopPropagation();
-              if (window.confirm("Are you sure you want to delete your account? This action cannot be undone."))
+              if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")){
                 onDeleteAccount(); 
                 showMessage("Account deleted successfully");
-              }
+              }}
             } 
           >
             Delete Account
           </button>
-          <button className="dropdown-item" id="logout-btn" onClick={onLogout}>
+          <button className="dropdown-item" onClick={onLogout}>
             Logout
             <img src={logoutIcon} alt="Logout Icon" width={25} height={25} />
             </button>

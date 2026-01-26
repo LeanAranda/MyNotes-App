@@ -6,6 +6,9 @@ import TrashView from "./components/TrashBin.jsx";
 import CategoryList from "./components/CategoryList.jsx";
 import UserMenu from "./components/UserMenu.jsx";
 import colorModeIcon from "./assets/color-mode-white.svg";
+import notesIcon from "./assets/notesR.svg";
+import categoryIcon from "./assets/categoryR.svg";
+import trashIcon from "./assets/trashR.svg";
 import { ToastProvider } from "./components/ToastMessage.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -67,9 +70,18 @@ export default function App() {
 
         {logged && ( 
           <div className="nav-buttons"> 
-            <button onClick={() => setView("notes")} className={view === "notes" ? "active-btn" : ""}>Notes</button> 
-            <button onClick={() => setView("categories")} className={view === "categories" ? "active-btn" : ""}>Categories</button> 
-            <button onClick={() => setView("trash")} className={view === "trash" ? "active-btn" : ""}>Trash</button> 
+            <button onClick={() => setView("notes")} className={view === "notes" ? "active-btn" : ""}>
+              Notes
+              <img src={notesIcon} width={30} height={30} alt="Notes" />  
+            </button> 
+            <button onClick={() => setView("categories")} className={view === "categories" ? "active-btn" : ""}>
+              Categories
+              <img src={categoryIcon} width={30} height={30} alt="Categories" />
+            </button> 
+            <button onClick={() => setView("trash")} className={view === "trash" ? "active-btn" : ""}>
+              Trash
+              <img src={trashIcon} width={30} height={30} alt="Trash" />
+            </button> 
           </div> )}
 
         {logged ? (

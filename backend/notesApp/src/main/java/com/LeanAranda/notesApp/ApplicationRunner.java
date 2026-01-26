@@ -22,13 +22,13 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // if the database is empty, this function creates a new default user
-        // username: notesUser, password: notesPassword
+        // username: NotesUser, password: pass123
         dataInitializer();
     }
 
     private void dataInitializer(){
         if(userService.isEmpty()){
-            User user = new User("notesUser", "notesPassword");
+            User user = new User("NotesUser", "pass123");
             userService.create(user);
         }
     }

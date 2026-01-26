@@ -10,6 +10,7 @@
 - Automatic tutorial note creation when a new user registers.
 - Added global exception handler and UserNotFoundException on the backend.
 - New user service methods: register, delete, and changePassword.
+- Updated default user credentials (username: NotesUser, password: pass123)
 
 ### User Interface
 - Updated login styles.

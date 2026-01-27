@@ -18,6 +18,16 @@ export default function App() {
   const [authMode, setAuthMode] = useState("login"); // "login" or "register"
   const [view, setView] = useState("notes")
   const [isYellowMode, setIsYellowMode] = useState(true);
+  const colors = [
+  "#fde991", 
+  "#d1f7c4", 
+  "#f0d6ff", 
+  "#cce0ff", 
+  "#ffcfcc", 
+  "#ebebeb", 
+  "#fff3cd", 
+];
+  const [colorIndex, setColorIndex] = useState(0);
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -43,15 +53,17 @@ export default function App() {
     }
   }
 
-  const toggleMode = () => { setIsYellowMode(!isYellowMode); };
+  const toggleColorMode = () => {
+    setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+  };
 
   return (
     <ToastProvider>
-    <div className="page-container" style={{ backgroundColor: isYellowMode ? "#fde991" : "#ebebeb" }}>
+    <div className="page-container" style={{ backgroundColor: colors[colorIndex], transition: "background-color 0.5s ease" }}>
       <header className="navbar">
         <h2>My Notes</h2>
         <div className='nav-buttons'>
-          <button onClick={toggleMode}>
+          <button onClick={toggleColorMode}>
             <img src={colorModeIcon} width={32} height={32} alt="Toggle Color Mode" />
           </button>
           {logged ? (

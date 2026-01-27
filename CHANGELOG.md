@@ -1,5 +1,15 @@
 # My Notes - Updates
 
+## Version 1.3.1 - [2026-01-27]
+### New Features
+- Increased maximum note text limit to 2040 characters.
+- Implemented see more/less button to expand or collapse long note text.
+- Added show/hide password toggle buttons on login and register forms.
+- Introduced new color modes for background customization.
+- Restricted deleted notes expiration time to 7 days.
+
+---
+
 ## Version 1.3 - [2026-01-26]
 
 ### Authentication & User Management

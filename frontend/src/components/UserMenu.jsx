@@ -3,6 +3,8 @@ import userIcon from "../assets/user.svg";
 import logoutIcon from "../assets/logout.svg";
 import "./UserMenu.css";
 import "./Form.css";
+import showPIcon from "../assets/show.png";
+import hidePIcon from "../assets/hide.png";
 import { useToast } from "./ToastMessage.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,6 +15,8 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
   const { showMessage } = useToast();
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   
   const token = localStorage.getItem("token");
 
@@ -85,16 +89,28 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
             <div className="change-password-form-container">
               <form className="change-password-form" onSubmit={handleChangePassword}>
                 <strong>Change Password</strong>
-                <input type="password" placeholder="Current password" 
-                  value={oldPassword} 
-                  required
-                  onChange={(e) => setOldPassword(e.target.value)}
-                />
-                <input type="password" placeholder="New password" 
-                  value={newPassword} 
-                  required
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
+                <div className="password-field">
+                  <input type={showOldPassword ? "text" : "password"} 
+                    placeholder="Current password" 
+                    value={oldPassword} 
+                    required
+                    onChange={(e) => setOldPassword(e.target.value)}
+                  />
+                  <button type="button" className="toggle-password-btn" onClick={() => setShowOldPassword(!showOldPassword)}>
+                    {showOldPassword ? <img className="img-white" src={hidePIcon} alt="Hide" /> : <img className="img-white" src={showPIcon} alt="Show" />}
+                  </button>
+                </div>
+                <div className="password-field">
+                  <input type={showNewPassword ? "text" : "password"} 
+                    placeholder="New password" 
+                    value={newPassword} 
+                    required
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <button type="button" className="toggle-password-btn" onClick={() => setShowNewPassword(!showNewPassword)}>
+                    {showNewPassword ? <img className="img-white" src={hidePIcon} alt="Hide" /> : <img className="img-white" src={showPIcon} alt="Show" />}
+                  </button>
+                </div>
                 <div className="form-actions">
                   <button type="submit">
                     Save

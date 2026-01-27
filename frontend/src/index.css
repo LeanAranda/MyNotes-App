@@ -219,6 +219,10 @@ button:focus-visible {
   padding: 0.25rem;
 }
 
+.img-white {
+  filter: invert(1);
+}
+
 /* responsive */
 
 @media (max-width: 600px) {

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./Form.css";
+import showPIcon from "../assets/show.png";
+import hidePIcon from "../assets/hide.png";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function LoginForm({ onSuccess }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -43,12 +46,17 @@ export default function LoginForm({ onSuccess }) {
                     required
                 />
                 <label>Password</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <div className="password-field"> 
+                    <input
+                        type={showPassword ? "text" : "password"} 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button type="button" className="toggle-password-btn" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <img src={hidePIcon} alt="Hide" /> : <img src={showPIcon} alt="Show" />}
+                    </button>
+                </div>
                 <br />
                 <button type="submit">Login</button>
                 {error && <span className="error">{error}</span>}

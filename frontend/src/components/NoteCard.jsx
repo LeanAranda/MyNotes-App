@@ -5,6 +5,7 @@ import trashIcon from "../assets/trash-white.svg";
 
 export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeStatus, onRestore, onDeleteForever }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const token = localStorage.getItem("token");
 
   const handleCardClick = () => {
@@ -12,6 +13,10 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
       setIsEditing(true);
     }
   };
+
+  const MAX_LENGTH = 300;
+  const isTextLong = note.text.length > MAX_LENGTH;
+  const displayedText = expanded ? note.text : note.text.slice(0, MAX_LENGTH);
 
   return (
     <div className="note-card-container" onDoubleClick={handleCardClick}  >
@@ -29,7 +34,19 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
           <div className="note-card">
             <div className="content">
               <h3>{note.title}</h3>
-              <p>{note.text}</p>
+              <p>
+                {displayedText}
+                {!expanded && isTextLong && "..."}
+              </p>
+              {isTextLong && (
+                <button className="see-more-btn" onClick={(e) => {
+                    e.stopPropagation();
+                    setExpanded(!expanded);
+                  }}
+                >
+                  {expanded ? "See less" : "See more"}
+                </button>
+              )}
             </div>
             <div className="modification-date">
               <span><strong>Last modification:</strong></span>

@@ -62,11 +62,13 @@ select {
   justify-content: space-between;
 }
 
-.note-card-container, #noteForm {
+.note-card-container,
+#noteForm {
   transition: border-color 0.25s, transform 0.2s ease-in-out;
 }
 
-.note-card-container:hover, #noteForm:hover {
+.note-card-container:hover,
+#noteForm:hover {
   transform: scale(1.04)
 }
 
@@ -105,4 +107,21 @@ select {
   .top-bar {
     flex-direction: column;
   }
+}
+
+.see-more-btn {
+  background: none;
+  border: none;
+  color: #860e3c;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.see-more-btn:hover {
+  text-decoration: underline;
+}
+
+.see-more-btn:focus {
+  outline: none;
 }

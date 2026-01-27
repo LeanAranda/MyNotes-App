@@ -167,4 +167,4 @@ Now you can access the frontend at **http://localhost:5173** and start testing a
 ## Live Deployed Version 
 Deployed in Northflank.com
 
-Try the app online at: https://p01--front--7hnk8wmpgxbr.code.run
+Try the app online at: https://mynotes--frontend--z6wxwfqcq9zw.code.run

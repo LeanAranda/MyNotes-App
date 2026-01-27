@@ -21,7 +21,7 @@ public class NoteCleanupScheduler {
     // deletes old notes at 12 AM
     @Scheduled(cron = "0 0 0 * * ?")
     public void deleteOldNotes() {
-        LocalDateTime cutoff = LocalDateTime.now().minusDays(30);
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(7);
         List<Note> oldDeletedNotes = noteService.getExpiredDeletedNotes(cutoff);
         noteService.dbDeleteList(oldDeletedNotes);
 

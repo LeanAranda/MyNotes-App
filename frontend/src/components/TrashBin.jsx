@@ -71,7 +71,7 @@ export default function TrashView() {
 
     return (
         <div className="notes-list-container">
-            <h4>Notes in Trash will be permanently deleted after 30 days.</h4>
+            <h4>Notes in Trash will be permanently deleted after 7 days.</h4>
 
             <div className="cards-container">
                 {deletedNotes.length === 0 ? (

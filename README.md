@@ -14,6 +14,7 @@ See the full list of changes in the [CHANGELOG.md](./CHANGELOG.md).
 - [Backend](#backend)
 - [Frontend](#frontend)
 - [Installation & Usage](#installation--usage)
+- [Live version](#live-deployed-version)
 
 ---
 
@@ -164,7 +165,7 @@ Now you can access the frontend at **http://localhost:5173** and start testing a
 - **Username:** `NotesUser`
 - **Password:** `pass123`
 
-## Live Deployed Version 
+# Live Deployed Version 
 Deployed in Northflank.com
 
 Try the app online at: https://mynotes--frontend--z6wxwfqcq9zw.code.run

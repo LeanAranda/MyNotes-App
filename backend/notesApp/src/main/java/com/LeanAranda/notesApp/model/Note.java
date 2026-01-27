@@ -23,7 +23,7 @@ public class Note {
 
     @Column(nullable = false, length = 50)
     private String title;
-    @Column(length = 510)
+    @Column(length = 2040)
     private String text;
 
     //Notes can have 3 states: (ACTIVE, ARCHIVED and DELETED)

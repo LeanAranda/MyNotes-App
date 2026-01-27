@@ -61,7 +61,7 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
           />
           <textarea
             placeholder="Text"
-            maxLength={510}
+            maxLength={2040}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />

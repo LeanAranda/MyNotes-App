@@ -57,7 +57,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User changePassword(User user, String oldPassword, String newPassword) {
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IllegalArgumentException("Old Password does not match New Password");
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            throw new IllegalArgumentException("New password must be different from current password");
         }
         user.setPassword(passwordEncoder.encode(newPassword));
         return userRepository.save(user);

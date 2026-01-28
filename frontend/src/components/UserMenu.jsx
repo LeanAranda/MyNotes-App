@@ -28,10 +28,6 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
       setError("Please fill in all fields");
       return; 
     }
-    if (oldPassword === newPassword) {
-      setError("New password must be different from current password");
-      return;
-    }
     
     try{
       const res = await fetch(`${API_URL}/users/changePassword`, {

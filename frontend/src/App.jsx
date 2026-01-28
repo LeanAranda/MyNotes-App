@@ -27,7 +27,11 @@ export default function App() {
   "#ebebeb", 
   "#fff3cd", 
 ];
-  const [colorIndex, setColorIndex] = useState(0);
+  
+  const [colorIndex, setColorIndex] = useState(() => {
+    const savedIndex = localStorage.getItem("colorIndex");
+    return savedIndex ? parseInt(savedIndex, 10) : 0;
+  });
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -52,9 +56,13 @@ export default function App() {
       console.error(err);
     }
   }
-
+  
   const toggleColorMode = () => {
-    setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    setColorIndex((prevIndex) => {
+      const newIndex = (prevIndex + 1) % colors.length;
+      localStorage.setItem("colorIndex", newIndex);
+      return newIndex;
+  });
   };
 
   return (

@@ -14,9 +14,21 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
     }
   };
 
-  const MAX_LENGTH = 300;
-  const isTextLong = note.text.length > MAX_LENGTH;
-  const displayedText = expanded ? note.text : note.text.slice(0, MAX_LENGTH);
+  const MAX_LENGTH = 250;
+  const MAX_LINES = 8;
+  const lines = note.text.split("\n");
+  const isTextLong = (lines.length > MAX_LINES || note.text.length > MAX_LENGTH);
+  
+  let displayedText;
+  if (expanded) {
+    displayedText = note.text;
+  } else {
+    if (lines.length > MAX_LINES) {
+      displayedText = lines.slice(0, MAX_LINES).join("\n");
+    } else {
+      displayedText = note.text.slice(0, MAX_LENGTH);
+    }
+  }
 
   return (
     <div className="note-card-container" onDoubleClick={handleCardClick}  >
@@ -34,7 +46,7 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
           <div className="note-card">
             <div className="content">
               <h3>{note.title}</h3>
-              <p>
+              <p className="note-text">
                 {displayedText}
                 {!expanded && isTextLong && "..."}
               </p>

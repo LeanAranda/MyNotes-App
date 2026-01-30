@@ -72,6 +72,10 @@ select {
   transform: scale(1.04)
 }
 
+.note-text {
+  white-space: pre-line;
+}
+
 .categories {
   display: flex;
   flex-wrap: wrap;

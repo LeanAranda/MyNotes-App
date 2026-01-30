@@ -55,6 +55,12 @@ textarea {
     color: #020000 !important;
 }
 
+textarea {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+
 input {
     background-color: #ffffff !important;
     color: #000000 !important;

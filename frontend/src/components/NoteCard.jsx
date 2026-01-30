@@ -18,7 +18,7 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
   const MAX_LINES = 8;
   const lines = note.text.split("\n");
   const isTextLong = (lines.length > MAX_LINES || note.text.length > MAX_LENGTH);
-  
+
   let displayedText;
   if (expanded) {
     displayedText = note.text;
@@ -29,6 +29,20 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
       displayedText = note.text.slice(0, MAX_LENGTH);
     }
   }
+
+  const daysLeft = () => {
+    if (trashed && note.lastModification) {
+      const trashDate = new Date(`${note.lastModification}Z`);
+      const currentDate = new Date();
+
+      const expirationDate = new Date(trashDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const diffTime = expirationDate.getTime() - currentDate.getTime();
+
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays > 0 ? diffDays + 1 : 0;
+    }
+    return 0;
+  };
 
   return (
     <div className="note-card-container" onDoubleClick={handleCardClick}  >
@@ -44,6 +58,13 @@ export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeSt
       ) : (
         <>
           <div className="note-card">
+            {trashed && (
+                <div className="time-left-indicator">
+                  <span>Time left: </span>
+                  {daysLeft()}
+                  <span> day/s</span>
+                </div>
+              )}
             <div className="content">
               <h3>{note.title}</h3>
               <p className="note-text">

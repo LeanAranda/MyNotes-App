@@ -34,6 +34,7 @@ select {
   gap: 1rem;
   margin-top: 1rem;
   justify-items: center;
+  row-gap: 2rem;
 }
 
 .content {
@@ -60,6 +61,7 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .note-card-container,
@@ -105,11 +107,27 @@ select {
   gap: 0.5rem;
 }
 
+.time-left-indicator{
+  background-color: #860e3c;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  position: absolute;
+  margin: 0;
+  top: -10px;
+  right: -10px;
+  border-radius: 4px;
+}
+
 /* responsive */
 
 @media (max-width: 600px) {
   .top-bar {
     flex-direction: column;
+  }
+  .cards-container {
+    gap: 2rem;
   }
 }
 

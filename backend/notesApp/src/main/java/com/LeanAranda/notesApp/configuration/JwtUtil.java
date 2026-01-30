@@ -13,6 +13,8 @@ import java.util.Date;
 public class JwtUtil {
 
     private final Algorithm algorithm;
+    private static final long TOKEN_EXPIRATION_DAYS = 30;
+    private static final long MILLIS_IN_DAY = 1000L * 60 * 60 * 24; //1s * 1m * 1h * 1d
 
     public JwtUtil(@Value("${JWT_KEY}") String privateKey) {
         this.algorithm = Algorithm.HMAC256(privateKey);
@@ -22,7 +24,7 @@ public class JwtUtil {
         return JWT.create()
                 .withSubject(username)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_DAYS * MILLIS_IN_DAY))
                 .sign(algorithm);
     }
 

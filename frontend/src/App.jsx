@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useEffect } from "react";
+import { checkTokenExpiration } from "./utils/checkTokenExpiration";
 import LoginForm from './components/LoginForm.jsx'
 import RegisterForm from './components/RegisterForm.jsx'
 import NotesList from "./components/NotesList";
@@ -38,6 +40,13 @@ export default function App() {
     localStorage.removeItem("username");
     setLogged(false);
   }
+
+  useEffect(() => { 
+    const interval = setInterval(() => { 
+      checkTokenExpiration(handleLogout); 
+    }, 5000); // check every 5 seconds 
+    return () => clearInterval(interval); 
+  }, []);
 
   function handleDeleteAccount() {
     try {

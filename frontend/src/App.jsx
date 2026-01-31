@@ -40,6 +40,7 @@ export default function App() {
       credentials: "include"
     }).then(() => {
       localStorage.removeItem("username");
+      document.cookie = "token=; Max-Age=0";
       setLogged(false);
     });
   }

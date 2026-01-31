@@ -1,6 +1,32 @@
 # My Notes - Updates
 
+## Version 1.3.2 - [2026-01-30]
+
+### Added
+- Your **color mode preference** is now saved automatically and restored when you return.
+- Notes in the trash now show a **7‑day countdown** until permanent deletion.
+- Session management now uses **secure HttpOnly cookies** instead of localStorage.
+- The app automatically detects when your session has expired and logs you out.
+
+### Changed
+- `changepassword` endpoint → now validates `oldPassword`.
+- Improved "see more/less" logic with line and character limits.
+- Notes now properly respect **line breaks** in their text.
+- Updated the font in the note editor.
+- Session duration extended to **30 days** (previously 1 hour).
+- Frontend updated to use `credentials: "include"` for cookie‑based auth.
+- Removed reliance on localStorage for authentication.
+
+### New Endpoints
+```http
+GET    /auth/check    → returns token status.
+```
+
+
+---
+
 ## Version 1.3.1 - [2026-01-27]
+
 ### New Features
 - Increased maximum note text limit to 2040 characters.
 - Implemented see more/less button to expand or collapse long note text.

@@ -8,16 +8,14 @@ export default function TrashView() {
     const [deletedNotes, setDeletedNotes] = useState([]);
     const { showMessage } = useToast();
 
-    const token = localStorage.getItem("token");
-
     const fetchDeletedNotes = async () => {
         try {
             const res = await fetch(`${API_URL}/notes/myNotes/deleted`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
@@ -38,8 +36,9 @@ export default function TrashView() {
             const res = await fetch(`${API_URL}/notes/restore/${id}`, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
@@ -56,8 +55,9 @@ export default function TrashView() {
             const res = await fetch(`${API_URL}/notes/dbDelete/${id}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);

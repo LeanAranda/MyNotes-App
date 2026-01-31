@@ -8,16 +8,14 @@ export default function NoteForm({ onCreate, onCancel }) {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    const token = localStorage.getItem("token");
-
     useEffect(() => { 
         const fetchCategories = async () => { 
             try { 
                 const res = await fetch(`${API_URL}/categories/myCategories`, { 
                     headers: { 
                         "Content-Type": "application/json", 
-                        Authorization: `Bearer ${token}`, 
                     }, 
+                    credentials: "include"
                 }); 
                 if (!res.ok) {
                     throw new Error(`Error ${res.status}`);
@@ -29,7 +27,7 @@ export default function NoteForm({ onCreate, onCancel }) {
             } 
         }; 
         fetchCategories(); 
-    }, [token]);
+    }, []);
 
     const toggleCategory = (id) => { 
         setSelectedCategories((prev) => 

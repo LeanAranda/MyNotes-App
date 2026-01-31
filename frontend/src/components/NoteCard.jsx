@@ -6,7 +6,6 @@ import trashIcon from "../assets/trash-white.svg";
 export default function NoteCard({ note, trashed, onUpdate, onDelete, onChangeStatus, onRestore, onDeleteForever }) {
   const [isEditing, setIsEditing] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const token = localStorage.getItem("token");
 
   const handleCardClick = () => {
     if (!trashed) {

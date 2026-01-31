@@ -4,15 +4,13 @@ import com.LeanAranda.notesApp.dto.LoginRequest;
 import com.LeanAranda.notesApp.dto.UserDto;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.service.IUserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -37,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest req) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest req, HttpServletResponse response) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword())
@@ -45,23 +43,43 @@ public class AuthController {
 
         String token = jwtUtil.generateToken(req.getUsername());
 
-        return ResponseEntity.ok(Map.of( "message", "Login successful", "token", token ));
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);               // no JS
+        cookie.setSecure(true);                 // HTTPS only
+        cookie.setPath("/");                    // full app
+        cookie.setMaxAge(30 * 24 * 60 * 60);    // 30 days
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok(Map.of( "message", "Login successful", "username", req.getUsername() ));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return ResponseEntity.ok(Map.of("message", "Logout successful"));
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // expires immediately
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok(Map.of("message", "Logged out"));
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<?> me(Authentication authentication) {
-        if (authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "No user logged in"));
-        } return ResponseEntity.ok(Map.of( "username", authentication.getName(), "authorities", authentication.getAuthorities() ));
+    @GetMapping("/check")
+    public ResponseEntity<?> checkAuth(HttpServletRequest request) {
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+        if (token != null && jwtUtil.validateToken(token) != null) {
+            return ResponseEntity.ok(Map.of("status", "valid"));
+        } else {
+            return ResponseEntity.ok(Map.of("status", "invalid"));
+        }
     }
+
 }

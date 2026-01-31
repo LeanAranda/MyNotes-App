@@ -16,19 +16,18 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function App() {
   // state to track if the user is logged in
-  const [logged, setLogged] = useState(!!localStorage.getItem("token"));
-  const [authMode, setAuthMode] = useState("login"); // "login" or "register"
+  const [logged, setLogged] = useState(false);
+  const [authMode, setAuthMode] = useState("login");
   const [view, setView] = useState("notes")
-  const [isYellowMode, setIsYellowMode] = useState(true);
   const colors = [
-  "#fde991", 
-  "#d1f7c4", 
-  "#f0d6ff", 
-  "#cce0ff", 
-  "#ffcfcc", 
-  "#ebebeb", 
-  "#fff3cd", 
-];
+    "#fde991",
+    "#d1f7c4",
+    "#f0d6ff",
+    "#cce0ff",
+    "#ffcfcc",
+    "#ebebeb",
+    "#fff3cd",
+  ];
   
   const [colorIndex, setColorIndex] = useState(() => {
     const savedIndex = localStorage.getItem("colorIndex");
@@ -36,30 +35,58 @@ export default function App() {
   });
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    setLogged(false);
+    fetch(`${API_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include"
+    }).then(() => {
+      localStorage.removeItem("username");
+      setLogged(false);
+    });
   }
 
-  useEffect(() => { 
-    const interval = setInterval(() => { 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch(`${API_URL}/auth/check`, {
+          method: "GET",
+          credentials: "include"
+        });
+        const data = await res.json();
+
+        if (data.status === "valid") {
+          setLogged(true);
+        } else {
+          setLogged(false);
+        }
+      } catch {
+        setLogged(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  useEffect(() => {
+    if (logged) {
+      const interval = setInterval(() => { 
       checkTokenExpiration(handleLogout); 
     }, 5000); // check every 5 seconds 
     return () => clearInterval(interval); 
-  }, []);
+    }
+  }, [logged]);
 
   function handleDeleteAccount() {
     try {
-      const token = localStorage.getItem("token");
       fetch(`${API_URL}/users/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        credentials: "include"
       }).then((res) => {
         if (!res.ok) throw new Error(`Error ${res.status}`);
-        handleLogout();
+        localStorage.removeItem("username");
+        setLogged(false);
       });
     } catch (err) {
       console.error(err);

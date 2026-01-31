@@ -19,13 +19,12 @@ export default function LoginForm({ onSuccess }) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error("Invalid credentials");
             }
             const data = await res.json();
-            // saves the token in localStorage
-            localStorage.setItem("token", data.token);
             // saves the username in localStorage
             localStorage.setItem("username", username);
             onSuccess?.();

@@ -10,16 +10,14 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
   );
   const [categories, setCategories] = useState([]);
 
-  const token = localStorage.getItem("token");
-
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${API_URL}/categories/myCategories`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include"
         });
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data = await res.json();
@@ -29,7 +27,7 @@ export default function EditNoteForm({ note, onUpdate, onCancel }) {
       }
     };
     fetchCategories();
-  }, [token]);
+  }, []);
 
   const toggleCategory = (id) => {
     setSelectedCategories((prev) =>

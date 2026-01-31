@@ -15,8 +15,6 @@ export default function NotesList() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const { showMessage } = useToast();
 
-    const token = localStorage.getItem("token");
-
     // fetch functions
 
     const fetchNotes = async () => {
@@ -24,8 +22,8 @@ export default function NotesList() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
             },
+            credentials: "include"
         });
         if (!res.ok) {
             throw new Error(`Error ${res.status}`);
@@ -40,8 +38,8 @@ export default function NotesList() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
             },
+            credentials: "include"
         });
         if (!res.ok) {
             throw new Error(`Error ${res.status}`);
@@ -60,8 +58,8 @@ export default function NotesList() {
             const res = await fetch(`${API_URL}/notes/myNotes/${endpoint}/${categoryId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include"
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             const data = await res.json();
@@ -90,8 +88,8 @@ export default function NotesList() {
                 const res = await fetch(`${API_URL}/categories/myCategories`, { 
                     headers: { 
                         "Content-Type": "application/json", 
-                        Authorization: `Bearer ${token}`, 
                     }, 
+                    credentials: "include"
                 }); 
                 if (!res.ok) throw new Error(`Error ${res.status}`); 
                 const data = await res.json(); 
@@ -101,7 +99,7 @@ export default function NotesList() {
             } 
         }; 
         fetchCategories(); 
-        }, [token]
+        }, []
     );
 
     // actions
@@ -114,8 +112,8 @@ export default function NotesList() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
@@ -137,8 +135,9 @@ export default function NotesList() {
             const res = await fetch(`${API_URL}/notes/delete/${id}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
+                credentials: "include"
             });
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
@@ -159,8 +158,8 @@ export default function NotesList() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
             },
+            credentials: "include",
             body: JSON.stringify(note),
         });
         if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -175,8 +174,8 @@ export default function NotesList() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
                 body: JSON.stringify(updatedData),
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);

@@ -17,8 +17,6 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
   const { showMessage } = useToast();
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  
-  const token = localStorage.getItem("token");
 
   async function handleChangePassword(e) {
     e.preventDefault();
@@ -34,8 +32,8 @@ export default function UserMenu({ username, onLogout, onDeleteAccount }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
         },
+        credentials: "include",
         body: JSON.stringify({ oldPassword, newPassword }),
       })
       if (!res.ok) {

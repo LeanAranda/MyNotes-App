@@ -3,6 +3,7 @@ package com.LeanAranda.notesApp.configuration;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,9 +29,14 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public String validateToken(String token){
-        JWTVerifier verifier = JWT.require(algorithm).build();
-        DecodedJWT decoded = verifier.verify(token);
-        return decoded.getSubject();
+    public String validateToken(String token) {
+        try {
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT decoded = verifier.verify(token);
+            return decoded.getSubject();
+        } catch (JWTVerificationException e) {
+            return null;
+        }
     }
+
 }

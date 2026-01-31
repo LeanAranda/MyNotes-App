@@ -10,8 +10,6 @@ export default function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState("");
     const { showMessage } = useToast();
-    
-    const token = localStorage.getItem("token");
 
     const fetchCategories = async () => {
         try { 
@@ -19,8 +17,8 @@ export default function CategoryList() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include"
             });
             if (!res.ok) throw new Error(`Error ${res.status}`); 
             const data = await res.json(); 
@@ -43,8 +41,8 @@ export default function CategoryList() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
                 body: JSON.stringify({ name: newCategory }),
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -62,8 +60,8 @@ export default function CategoryList() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
                 body: JSON.stringify({ id, name }),
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -81,8 +79,8 @@ export default function CategoryList() {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             fetchCategories();

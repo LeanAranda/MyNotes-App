@@ -1,19 +1,19 @@
-export function checkTokenExpiration(handleLogout) {
-    const token = localStorage.getItem("token");
-    if (token) {
-        try {
-            const payload = JSON.parse(atob(token.split(".")[1]));
-            const exp = payload.exp * 1000; //s → ms
-            if (Date.now() > exp) {
-                alert("Session expired. Please log in again.");
-                handleLogout();
-                return true;
-            }
-        } catch {
-            alert("Session expired. Please log in again.");
-            handleLogout();
-            return true;
-        }
+const API_URL = import.meta.env.VITE_API_URL;
+
+export async function checkTokenExpiration(handleLogout) {
+  try {
+    const res = await fetch(`${API_URL}/auth/check`, {
+      method: "GET",
+      credentials: "include"
+    });
+
+    const data = await res.json(); 
+    if (data.status === "invalid") { 
+        alert("Session expired. Please log in again.");
+        handleLogout();
     }
-    return false;
+  } catch (error) {
+    handleLogout();
+  }
 }
+

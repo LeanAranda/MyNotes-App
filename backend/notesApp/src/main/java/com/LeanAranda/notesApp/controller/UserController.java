@@ -5,6 +5,8 @@ import com.LeanAranda.notesApp.dto.UserDto;
 import com.LeanAranda.notesApp.mapper.UserMapper;
 import com.LeanAranda.notesApp.model.User;
 import com.LeanAranda.notesApp.service.IUserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -33,9 +35,16 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteUser(Authentication authentication){
+    public ResponseEntity<Void> deleteUser(Authentication authentication, HttpServletResponse response){
         User user = userService.getByUsername(authentication.getName());
         userService.delete(user);
+
+        Cookie cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

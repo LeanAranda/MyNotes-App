@@ -56,9 +56,13 @@ export default function App() {
         if (data.status === "valid") {
           setLogged(true);
         } else {
+          document.cookie = "token=; Max-Age=0";
+          localStorage.removeItem("username");
           setLogged(false);
         }
       } catch {
+        document.cookie = "token=; Max-Age=0";
+        localStorage.removeItem("username");
         setLogged(false);
       }
     };
@@ -85,6 +89,7 @@ export default function App() {
         credentials: "include"
       }).then((res) => {
         if (!res.ok) throw new Error(`Error ${res.status}`);
+        document.cookie = "token=; Max-Age=0";
         localStorage.removeItem("username");
         setLogged(false);
       });
